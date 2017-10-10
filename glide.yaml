@@ -1,0 +1,9 @@
+package: github.com/goph/fxt
+import:
+- package: go.uber.org/dig
+  version: ^1.1.0
+- package: github.com/go-kit/kit
+  version: ^0.6.0
+  subpackages:
+  - log
+  - log/level
