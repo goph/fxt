@@ -12,3 +12,6 @@
 - [opentracing](http://opentracing.io/) tracer constructor
 - [jaeger](https://github.com/jaegertracing) tracer constructor
 - Lifecycle extension for supporting Closers
+- Debug server constructor (invoke fn)
+- Health collector constructor
+- Bootstrap options
