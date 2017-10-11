@@ -18,6 +18,7 @@ func ExampleLifecycle() {
 		fx.Provide(fxt.NewLifecycle),
 		fx.Provide(func(l fxt.Lifecycle) *A {
 			l.Append(fxt.Hook{
+				// OnStart and OnStop are valid fx hooks as well.
 				OnClose: func() error {
 					fmt.Print("closing")
 

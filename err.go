@@ -1,7 +1,6 @@
 package fxt
 
-// ErrChan can be used as an arbitrary error acceptor channel
-// and use it to stop the application.
+// ErrChan can be used to stop the application as a result of an error.
 type ErrChan chan error
 
 // NewErrChan creates a new ErrChan channel.

@@ -6,7 +6,7 @@ import (
 	"go.uber.org/fx"
 )
 
-// Closer is the interface after io.Closer for post-shutdown cleanups.
+// Closer is the interface modelled after io.Closer for post-shutdown cleanups.
 type Closer interface {
 	Close() error
 }
@@ -20,19 +20,19 @@ func (fn closerFunc) Close() error {
 
 // Hook is a set of callbacks extending fx.Hook.
 // It adds an OnClose hook which allows post-shutdown cleanups.
-// It's signature matches with the Closer interface.
 type Hook struct {
 	OnStart func(context.Context) error
 	OnStop  func(context.Context) error
 	OnClose func() error
 }
 
-// Lifecycle is the extended version of fx.Lifecycle.
+// Lifecycle extends fx.Lifecycle by adding the extra OnClose in Hook.
 type Lifecycle interface {
 	Append(Hook)
 }
 
 // NewLifecycle creates a new lifecycle required by all constructors providing closers.
+// It requires an fx.Lifecycle instance to register OnStart and OnStop hooks in.
 func NewLifecycle(l fx.Lifecycle) (Lifecycle, Closer) {
 	lf := &lifecycle{
 		lifecycle: l,
