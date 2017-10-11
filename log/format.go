@@ -12,6 +12,7 @@ func (f format) String() string {
 	return formatMap[f]
 }
 
+// Format constants
 const (
 	JsonFormat format = iota
 	LogfmtFormat

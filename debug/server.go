@@ -15,6 +15,7 @@ import (
 	"github.com/goph/stdlib/x/net/trace"
 )
 
+// NewServer creates a new debug server.
 func NewServer(params ServerParams) {
 	if params.Config.Debug {
 		// This is probably okay, as this service should not be exposed to public in the first place.
