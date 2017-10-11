@@ -11,3 +11,4 @@
 - Error handler stack for collecting multiple handlers under a single dependency
 - [opentracing](http://opentracing.io/) tracer constructor
 - [jaeger](https://github.com/jaegertracing) tracer constructor
+- Lifecycle extension for supporting Closers
