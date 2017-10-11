@@ -5,7 +5,7 @@ import (
 	"go.uber.org/dig"
 )
 
-// HandlerParams provides a set of dependencies for an Error Handler constructor.
+// HandlerParams provides a set of dependencies for an error handler constructor.
 type HandlerParams struct {
 	dig.In
 
