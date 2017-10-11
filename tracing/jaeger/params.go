@@ -2,6 +2,7 @@ package jaeger
 
 import (
 	"github.com/go-kit/kit/log"
+	"github.com/goph/fxt"
 	"go.uber.org/dig"
 )
 
@@ -9,6 +10,7 @@ import (
 type TracerParams struct {
 	dig.In
 
-	Config *Config `optional:"true"`
-	Logger log.Logger
+	Config    *Config `optional:"true"`
+	Logger    log.Logger
+	Lifecycle fxt.Lifecycle
 }

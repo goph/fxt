@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
+	"github.com/goph/fxt"
 	"github.com/opentracing/opentracing-go"
 	jaegercfg "github.com/uber/jaeger-client-go/config"
 )
@@ -18,10 +19,14 @@ func NewTracer(params TracerParams) (opentracing.Tracer, error) {
 	}
 
 	// TODO: handle closer
-	tracer, _, err := params.Config.JaegerConfig.New(params.Config.ServiceName, jaegerOptions...)
+	tracer, closer, err := params.Config.JaegerConfig.New(params.Config.ServiceName, jaegerOptions...)
 	if err != nil {
 		return nil, err
 	}
+
+	params.Lifecycle.Append(fxt.Hook{
+		OnClose: closer.Close,
+	})
 
 	return tracer, nil
 }
