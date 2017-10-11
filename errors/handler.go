@@ -9,6 +9,10 @@ import (
 func NewHandler(params HandlerParams) emperror.Handler {
 	var handlers []emperror.Handler
 
+	if params.Handlers != nil {
+		handlers = params.Handlers
+	}
+
 	if params.Logger != nil {
 		handlers = append(handlers, emperror_log.NewHandler(params.Logger))
 	}

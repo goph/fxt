@@ -9,5 +9,6 @@ import (
 type HandlerParams struct {
 	dig.In
 
-	Logger log.Logger `optional:"true"`
+	Logger   log.Logger   `optional:"true"`
+	Handlers HandlerStack `optional:"true"`
 }
