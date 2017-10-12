@@ -6,6 +6,7 @@
 ### Changed
 
 - Do not require a `net.Addr` in debug server config
+- Debug server is started without goph/serverz
 
 
 ## 0.2.0 - 2017-10-12

@@ -23,5 +23,3 @@ import:
   - config
 - package: github.com/goph/healthz
   version: ~0.9.0
-- package: github.com/goph/serverz
-  version: ~0.13.0

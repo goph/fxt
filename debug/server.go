@@ -11,7 +11,6 @@ import (
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"github.com/goph/fxt"
-	"github.com/goph/serverz"
 	"golang.org/x/net/trace"
 )
 
@@ -40,13 +39,11 @@ func NewServer(params ServerParams) (Handler, Err) {
 		logger = log.NewNopLogger()
 	}
 
-	server := &serverz.AppServer{
-		Server: &http.Server{
-			Handler:  handler,
-			ErrorLog: stdlog.New(log.NewStdlibAdapter(level.Error(log.With(logger, "server", "debug"))), "", 0),
-		},
-		Name:   "debug",
-		Logger: logger,
+	logger = log.With(logger, "server", "debug")
+
+	server := &http.Server{
+		Handler:  handler,
+		ErrorLog: stdlog.New(log.NewStdlibAdapter(level.Error(logger)), "", 0),
 	}
 
 	errCh := make(chan error, 1)
@@ -58,6 +55,8 @@ func NewServer(params ServerParams) (Handler, Err) {
 				return err
 			}
 
+			level.Info(logger).Log("msg", "starting server", "addr", lis.Addr())
+
 			go func() {
 				errCh <- server.Serve(lis)
 			}()
@@ -65,6 +64,8 @@ func NewServer(params ServerParams) (Handler, Err) {
 			return nil
 		},
 		OnStop: func(ctx context.Context) error {
+			level.Info(logger).Log("msg", "shutting server gracefully down")
+
 			return server.Shutdown(ctx)
 		},
 		OnClose: server.Close,
