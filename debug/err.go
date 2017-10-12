@@ -1,4 +1,4 @@
 package debug
 
 // Err accepts an error which causes the application to stop.
-type Err chan<- error
+type Err <-chan error

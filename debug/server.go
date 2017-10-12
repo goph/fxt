@@ -50,7 +50,7 @@ func NewServer(params ServerParams) (Handler, Err) {
 		Logger: logger,
 	}
 
-	errCh := make(chan<- error, 1)
+	errCh := make(chan error, 1)
 
 	params.Lifecycle.Append(fxt.Hook{
 		OnStart: func(ctx context.Context) error {
