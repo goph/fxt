@@ -1,8 +1,6 @@
 package debug_test
 
 import (
-	"net"
-
 	"github.com/goph/fxt"
 	"github.com/goph/fxt/debug"
 	"github.com/goph/healthz"
@@ -17,8 +15,7 @@ func Example() {
 		fxt.Bootstrap,
 		fx.Provide(
 			func() *debug.Config {
-				addr, _ := net.ResolveIPAddr("tcp", ":8080")
-				return debug.NewConfig(addr)
+				return debug.NewConfig(":8080")
 			},
 			debug.NewHealthCollector,
 			debug.NewServer,

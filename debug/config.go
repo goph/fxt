@@ -1,18 +1,16 @@
 package debug
 
-import (
-	"net"
-)
-
 // Config holds a list of options used during the debug server construction.
 type Config struct {
-	Debug bool
-	Addr  net.Addr
+	Debug   bool
+	Network string
+	Addr    string
 }
 
 // NewConfig returns a new config populated with default values.
-func NewConfig(addr net.Addr) *Config {
+func NewConfig(addr string) *Config {
 	return &Config{
-		Addr: addr,
+		Network: "tcp",
+		Addr:    addr,
 	}
 }

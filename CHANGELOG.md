@@ -1,6 +1,13 @@
 # Change Log
 
 
+## Unreleased
+
+### Changed
+
+- Do not require a `net.Addr` in debug server config
+
+
 ## 0.2.0 - 2017-10-12
 
 ### Added

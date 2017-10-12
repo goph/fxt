@@ -46,7 +46,6 @@ func NewServer(params ServerParams) (Handler, Err) {
 			ErrorLog: stdlog.New(log.NewStdlibAdapter(level.Error(log.With(logger, "server", "debug"))), "", 0),
 		},
 		Name:   "debug",
-		Addr:   params.Config.Addr,
 		Logger: logger,
 	}
 
@@ -54,7 +53,7 @@ func NewServer(params ServerParams) (Handler, Err) {
 
 	params.Lifecycle.Append(fxt.Hook{
 		OnStart: func(ctx context.Context) error {
-			lis, err := net.Listen(params.Config.Addr.Network(), params.Config.Addr.String())
+			lis, err := net.Listen(params.Config.Network, params.Config.Addr)
 			if err != nil {
 				return err
 			}
