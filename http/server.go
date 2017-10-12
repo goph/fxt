@@ -9,6 +9,7 @@ import (
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"github.com/goph/fxt"
+	"github.com/goph/healthz"
 )
 
 // NewServer creates a new http server.
@@ -19,6 +20,10 @@ func NewServer(params ServerParams) Err {
 	}
 
 	logger = log.With(logger, "server", "http")
+
+	if params.HealthCollector != nil {
+		params.HealthCollector.RegisterChecker(healthz.ReadinessCheck, healthz.NewTCPChecker(params.Config.Addr))
+	}
 
 	server := &http.Server{
 		Handler:  params.Handler,
