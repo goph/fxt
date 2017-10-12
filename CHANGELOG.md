@@ -5,7 +5,8 @@
 
 ### Added
 
-- Error channel returned from debug server 
+- Error channel returned from debug server
+- Opentracing global tracer
 
 ### Changed
 
