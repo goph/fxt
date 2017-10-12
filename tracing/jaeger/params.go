@@ -10,7 +10,7 @@ import (
 type TracerParams struct {
 	dig.In
 
-	Config    *Config `optional:"true"`
+	Config    *Config
 	Logger    log.Logger
 	Lifecycle fxt.Lifecycle
 }

@@ -11,7 +11,7 @@ import (
 	"github.com/goph/fxt"
 )
 
-// NewServer creates a new debug server.
+// NewServer creates a new http server.
 func NewServer(params ServerParams) Err {
 	logger := params.Logger
 	if logger == nil {

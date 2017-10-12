@@ -8,11 +8,11 @@ import (
 	"go.uber.org/dig"
 )
 
-// ServerParams provides a set of dependencies for a tracer constructor.
+// ServerParams provides a set of dependencies for a http server constructor.
 type ServerParams struct {
 	dig.In
 
-	Config    *Config `optional:"true"`
+	Config    *Config
 	Handler   http.Handler
 	Logger    log.Logger `optional:"true"`
 	Lifecycle fxt.Lifecycle
