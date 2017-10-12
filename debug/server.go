@@ -44,7 +44,7 @@ func NewServer(params ServerParams) {
 			}
 
 			go func() {
-				params.ErrChan <- server.Serve(lis)
+				params.Err <- server.Serve(lis)
 			}()
 
 			return nil

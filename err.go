@@ -1,9 +1,14 @@
 package fxt
 
-// ErrChan can be used to stop the application as a result of an error.
-type ErrChan chan error
+// ErrIn accepts an error which causes the application to stop.
+type ErrIn chan<- error
 
-// NewErrChan creates a new ErrChan channel.
-func NewErrChan() ErrChan {
-	return make(ErrChan, 1)
+// ErrIn is the output counterpart of ErrIn.
+type ErrOut <-chan error
+
+// NewErr creates a new ErrIn channel.
+func NewErr() (ErrIn, ErrOut) {
+	ch := make(chan error, 1)
+
+	return ch, ch
 }
