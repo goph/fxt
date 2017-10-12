@@ -50,12 +50,16 @@ func NewServer(params ServerParams) (Handler, Err) {
 
 	params.Lifecycle.Append(fxt.Hook{
 		OnStart: func(ctx context.Context) error {
+			level.Info(logger).Log(
+				"msg", "listening on address",
+				"addr", params.Config.Addr,
+				"network", params.Config.Network,
+			)
+
 			lis, err := net.Listen(params.Config.Network, params.Config.Addr)
 			if err != nil {
 				return err
 			}
-
-			level.Info(logger).Log("msg", "starting server", "addr", lis.Addr())
 
 			go func() {
 				errCh <- server.Serve(lis)
@@ -63,11 +67,7 @@ func NewServer(params ServerParams) (Handler, Err) {
 
 			return nil
 		},
-		OnStop: func(ctx context.Context) error {
-			level.Info(logger).Log("msg", "shutting server gracefully down")
-
-			return server.Shutdown(ctx)
-		},
+		OnStop:  server.Shutdown,
 		OnClose: server.Close,
 	})
 
