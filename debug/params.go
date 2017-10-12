@@ -14,5 +14,4 @@ type ServerParams struct {
 	Handler   Handler
 	Logger    log.Logger
 	Lifecycle fxt.Lifecycle
-	Err       fxt.ErrIn
 }

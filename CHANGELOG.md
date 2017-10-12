@@ -1,6 +1,17 @@
 # Change Log
 
 
+## Unreleased
+
+### Added
+
+- Error channel returned from debug server 
+
+### Removed
+
+- Global error channel
+
+
 ## 0.1.0 - 2017-10-12
 
 ### Added

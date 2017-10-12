@@ -5,4 +5,4 @@ import (
 )
 
 // Bootstrap can be used as an alias for must have provider options composed into one fx option.
-var Bootstrap = fx.Provide(NewLifecycle, NewErr)
+var Bootstrap = fx.Provide(NewLifecycle)

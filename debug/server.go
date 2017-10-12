@@ -16,7 +16,7 @@ import (
 )
 
 // NewServer creates a new debug server.
-func NewServer(params ServerParams) {
+func NewServer(params ServerParams) Err {
 	if params.Config.Debug {
 		// This is probably okay, as this service should not be exposed to public in the first place.
 		trace.SetAuth(trace.NoAuth)
@@ -35,6 +35,7 @@ func NewServer(params ServerParams) {
 		Addr:   params.Config.Addr,
 		Logger: params.Logger,
 	}
+	errCh := make(chan<- error, 1)
 
 	params.Lifecycle.Append(fxt.Hook{
 		OnStart: func(ctx context.Context) error {
@@ -44,7 +45,7 @@ func NewServer(params ServerParams) {
 			}
 
 			go func() {
-				params.Err <- server.Serve(lis)
+				errCh <- server.Serve(lis)
 			}()
 
 			return nil
@@ -54,4 +55,6 @@ func NewServer(params ServerParams) {
 		},
 		OnClose: server.Close,
 	})
+
+	return errCh
 }
