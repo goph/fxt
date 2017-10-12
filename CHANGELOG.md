@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Added
+
+- Daemon and cron tools
+
 ### Changed
 
 - Do not require a `net.Addr` in debug server config
