@@ -8,6 +8,8 @@
 - Daemon and cron tools
 - `WithTimeout` function to enforce timeouts
 - Simple http server construction
+- Database connection constructor
+- Master-slave database connection constructor
 
 ### Changed
 
