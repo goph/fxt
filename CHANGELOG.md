@@ -17,6 +17,7 @@
 
 - Global error channel
 - Debug bootstrap
+- goph/stdlib requirement
 
 
 ## 0.1.0 - 2017-10-12

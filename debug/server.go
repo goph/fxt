@@ -2,17 +2,17 @@ package debug
 
 import (
 	"context"
+	"expvar"
 	stdlog "log"
 	"net"
 	"net/http"
+	"net/http/pprof"
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"github.com/goph/fxt"
 	"github.com/goph/serverz"
-	"github.com/goph/stdlib/expvar"
-	"github.com/goph/stdlib/net/http/pprof"
-	"github.com/goph/stdlib/x/net/trace"
+	"golang.org/x/net/trace"
 )
 
 // NewServer creates a new debug server.
@@ -20,12 +20,19 @@ func NewServer(params ServerParams) (Handler, Err) {
 	handler := http.NewServeMux()
 
 	if params.Config.Debug {
-		// This is probably okay, as this service should not be exposed to public in the first place.
-		trace.SetAuth(trace.NoAuth)
+		handler.Handle("/debug/vars", expvar.Handler())
+		handler.HandleFunc("/debug/pprof/", pprof.Index)
+		handler.HandleFunc("/debug/pprof/cmdline", pprof.Cmdline)
+		handler.HandleFunc("/debug/pprof/profile", pprof.Profile)
+		handler.HandleFunc("/debug/pprof/symbol", pprof.Symbol)
+		handler.HandleFunc("/debug/pprof/trace", pprof.Trace)
+		handler.HandleFunc("/debug/requests", trace.Traces)
+		handler.HandleFunc("/debug/events", trace.Events)
 
-		expvar.RegisterRoutes(handler)
-		pprof.RegisterRoutes(handler)
-		trace.RegisterRoutes(handler)
+		// This is probably okay, as this service should not be exposed to public in the first place.
+		trace.AuthRequest = func(req *http.Request) (any, sensitive bool) {
+			return true, true
+		}
 	}
 
 	logger := params.Logger
