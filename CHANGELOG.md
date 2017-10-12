@@ -7,6 +7,7 @@
 
 - Daemon and cron tools
 - `WithTimeout` function to enforce timeouts
+- Simple http server construction
 
 ### Changed
 
