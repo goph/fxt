@@ -27,4 +27,6 @@ func ExampleHandlerStack() {
 
 	// The main error constructor will fetch the handler stack
 	dic.Provide(errors.NewHandler)
+
+	// Output:
 }
