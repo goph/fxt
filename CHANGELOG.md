@@ -7,9 +7,15 @@
 
 - Error channel returned from debug server 
 
+### Changed
+
+- Provide debug.Handler from debug server constructor
+- Make logger optional (but highly recommended) for debug server
+
 ### Removed
 
 - Global error channel
+- Debug bootstrap
 
 
 ## 0.1.0 - 2017-10-12

@@ -16,25 +16,33 @@ import (
 )
 
 // NewServer creates a new debug server.
-func NewServer(params ServerParams) Err {
+func NewServer(params ServerParams) (Handler, Err) {
+	handler := http.NewServeMux()
+
 	if params.Config.Debug {
 		// This is probably okay, as this service should not be exposed to public in the first place.
 		trace.SetAuth(trace.NoAuth)
 
-		expvar.RegisterRoutes(params.Handler)
-		pprof.RegisterRoutes(params.Handler)
-		trace.RegisterRoutes(params.Handler)
+		expvar.RegisterRoutes(handler)
+		pprof.RegisterRoutes(handler)
+		trace.RegisterRoutes(handler)
+	}
+
+	logger := params.Logger
+	if logger == nil {
+		logger = log.NewNopLogger()
 	}
 
 	server := &serverz.AppServer{
 		Server: &http.Server{
-			Handler:  params.Handler,
-			ErrorLog: stdlog.New(log.NewStdlibAdapter(level.Error(log.With(params.Logger, "server", "debug"))), "", 0),
+			Handler:  handler,
+			ErrorLog: stdlog.New(log.NewStdlibAdapter(level.Error(log.With(logger, "server", "debug"))), "", 0),
 		},
 		Name:   "debug",
 		Addr:   params.Config.Addr,
-		Logger: params.Logger,
+		Logger: logger,
 	}
+
 	errCh := make(chan<- error, 1)
 
 	params.Lifecycle.Append(fxt.Hook{
@@ -56,5 +64,5 @@ func NewServer(params ServerParams) Err {
 		OnClose: server.Close,
 	})
 
-	return errCh
+	return handler, errCh
 }

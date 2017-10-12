@@ -10,8 +10,7 @@ import (
 type ServerParams struct {
 	dig.In
 
-	Config    *Config `optional:"true"`
-	Handler   Handler
-	Logger    log.Logger
+	Config    *Config    `optional:"true"`
+	Logger    log.Logger `optional:"true"`
 	Lifecycle fxt.Lifecycle
 }
