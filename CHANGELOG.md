@@ -6,6 +6,7 @@
 ### Added
 
 - Daemon and cron tools
+- `WithTimeout` function to enforce timeouts
 
 ### Changed
 
