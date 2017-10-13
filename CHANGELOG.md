@@ -6,6 +6,7 @@
 ### Changed
 
 - Lock go-kit to patch versions
+- Register the daemon runner in the application lifecycle
 
 
 ## 0.3.0 - 2017-10-13

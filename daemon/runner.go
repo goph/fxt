@@ -4,6 +4,8 @@ import (
 	"context"
 	"errors"
 	"sync"
+
+	"github.com/goph/fxt"
 )
 
 // Runner runs a daemon.
@@ -15,11 +17,26 @@ type Runner struct {
 	quitChan chan struct{}
 }
 
-// NewRunner creates a new daemon runner.
-func NewRunner(daemon Daemon) *Runner {
-	return &Runner{
+// NewRunner creates a new daemon runner and registers it in the application lifecycle.
+func NewRunner(daemon Daemon, l fxt.Lifecycle) (*Runner, Err) {
+	runner := &Runner{
 		Daemon: daemon,
 	}
+
+	errCh := make(chan error, 1)
+
+	l.Append(fxt.Hook{
+		OnStart: func(ctx context.Context) error {
+			go func() {
+				errCh <- runner.Run()
+			}()
+
+			return nil
+		},
+		OnStop: runner.Shutdown,
+	})
+
+	return runner, errCh
 }
 
 func (s *Runner) getQuitChan() <-chan struct{} {
