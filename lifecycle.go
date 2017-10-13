@@ -52,15 +52,15 @@ func (l *lifecycle) Append(hook Hook) {
 		OnStop:  hook.OnStop,
 	})
 
-	l.closers = append(l.closers, closerFunc(hook.OnClose))
+	if hook.OnClose != nil {
+		l.closers = append(l.closers, closerFunc(hook.OnClose))
+	}
 }
 
 func (l *lifecycle) Close() error {
 	// TODO: handle multi errors
 	for _, closer := range l.closers {
-		if closer != nil {
-			closer.Close()
-		}
+		closer.Close()
 	}
 
 	return nil
