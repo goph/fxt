@@ -1,6 +1,13 @@
 # Change Log
 
 
+## Unreleased
+
+### Changed
+
+- Lock go-kit to patch versions
+
+
 ## 0.3.0 - 2017-10-13
 
 ### Added

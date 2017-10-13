@@ -5,7 +5,7 @@ import:
 - package: go.uber.org/fx
   version: ^1.2.0
 - package: github.com/go-kit/kit
-  version: ^0.6.0
+  version: ~0.6.0
   subpackages:
   - log
   - log/level
