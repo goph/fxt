@@ -58,7 +58,9 @@ func (l *lifecycle) Append(hook Hook) {
 func (l *lifecycle) Close() error {
 	// TODO: handle multi errors
 	for _, closer := range l.closers {
-		closer.Close()
+		if closer != nil {
+			closer.Close()
+		}
 	}
 
 	return nil

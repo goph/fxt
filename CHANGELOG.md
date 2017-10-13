@@ -1,6 +1,13 @@
 # Change Log
 
 
+## Unreleased
+
+### Fixed
+
+- Null pointer closer
+
+
 ## 0.3.1 - 2017-10-13
 
 ### Changed
