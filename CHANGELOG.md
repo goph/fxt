@@ -1,6 +1,13 @@
 # Change Log
 
 
+## Unreleased
+
+### Changed
+
+- Logger is now optional in Jaeger tracer
+
+
 ## 0.3.3 - 2017-10-13
 
 ### Fixed

@@ -11,6 +11,6 @@ type TracerParams struct {
 	dig.In
 
 	Config    *Config
-	Logger    log.Logger
+	Logger    log.Logger `optional:"true"`
 	Lifecycle fxt.Lifecycle
 }
