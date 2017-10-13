@@ -23,3 +23,8 @@ import:
   - config
 - package: github.com/goph/healthz
   version: ~0.9.0
+- package: google.golang.org/grpc
+  version: ^1.7.0
+  subpackages:
+  - grpclog
+  - reflection

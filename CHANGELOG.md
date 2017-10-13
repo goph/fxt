@@ -10,6 +10,7 @@
 - Simple http server construction
 - Database connection constructor
 - Master-slave database connection constructor
+- Add gRPC server constructor
 
 ### Changed
 
