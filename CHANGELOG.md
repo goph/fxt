@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Added
+
+- Router wrapping Gorilla mux adding OpenTracing support
+
 ### Changed
 
 - Logger is now optional in Jaeger tracer

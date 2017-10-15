@@ -28,3 +28,8 @@ import:
   subpackages:
   - grpclog
   - reflection
+- package: github.com/gorilla/mux
+  version: ^1.5.0
+- package: github.com/opentracing-contrib/go-stdlib
+  subpackages:
+  - nethttp
