@@ -16,6 +16,7 @@
 ### Removed
 
 - Custom Mux router wrapper
+- Interceptors from gRPC constructor params
 
 
 ## 0.4.0 - 2017-10-15

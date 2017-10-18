@@ -12,10 +12,8 @@ import (
 type ServerParams struct {
 	dig.In
 
-	Config            *Config
-	StreamInterceptor grpc.StreamServerInterceptor `optional:"true"`
-	UnaryInterceptor  grpc.UnaryServerInterceptor  `optional:"true"`
-	Logger            log.Logger                   `optional:"true"`
-	HealthCollector   healthz.Collector            `optional:"true"`
-	Lifecycle         fxt.Lifecycle
+	Config          *Config
+	Logger          log.Logger        `optional:"true"`
+	HealthCollector healthz.Collector `optional:"true"`
+	Lifecycle       fxt.Lifecycle
 }

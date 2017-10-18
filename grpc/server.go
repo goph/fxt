@@ -34,17 +34,7 @@ func NewServer(params ServerParams) (*grpc.Server, Err) {
 		params.HealthCollector.RegisterChecker(healthz.ReadinessCheck, healthz.NewTCPChecker(params.Config.Addr))
 	}
 
-	options := params.Config.Options
-
-	if params.StreamInterceptor != nil {
-		options = append(options, grpc.StreamInterceptor(params.StreamInterceptor))
-	}
-
-	if params.UnaryInterceptor != nil {
-		options = append(options, grpc.UnaryInterceptor(params.UnaryInterceptor))
-	}
-
-	server := grpc.NewServer(options...)
+	server := grpc.NewServer(params.Config.Options...)
 
 	if params.Config.ReflectionEnabled {
 		level.Debug(logger).Log("msg", "grpc reflection service enabled")
