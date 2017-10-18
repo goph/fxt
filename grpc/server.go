@@ -23,6 +23,7 @@ func NewServer(params ServerParams) (*grpc.Server, Err) {
 	logger = log.With(logger, "server", "grpc")
 
 	// TODO: separate log levels
+	// TODO: only set logger once
 	grpclog.SetLoggerV2(grpclog.NewLoggerV2(
 		log.NewStdlibAdapter(level.Info(logger)),
 		log.NewStdlibAdapter(level.Warn(logger)),
