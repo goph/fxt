@@ -6,6 +6,11 @@
 ### Changed
 
 - Moved Gorilla Mux router to `http/gorilla` package
+- Replaced custom router solution with tracer injection
+
+### Removed
+
+- Custom Mux router wrapper
 
 
 ## 0.4.0 - 2017-10-15
