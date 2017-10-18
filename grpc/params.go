@@ -5,7 +5,6 @@ import (
 	"github.com/goph/fxt"
 	"github.com/goph/healthz"
 	"go.uber.org/dig"
-	"google.golang.org/grpc"
 )
 
 // ServerParams provides a set of dependencies for a grpc server constructor.
