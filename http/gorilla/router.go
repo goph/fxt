@@ -1,4 +1,4 @@
-package http
+package gorilla
 
 import (
 	"net/http"

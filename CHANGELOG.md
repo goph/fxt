@@ -1,6 +1,13 @@
 # Change Log
 
 
+## Unreleased
+
+### Changed
+
+- Moved Gorilla Mux router to `http/gorilla` package
+
+
 ## 0.4.0 - 2017-10-15
 
 ### Added
