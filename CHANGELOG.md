@@ -6,6 +6,7 @@
 ### Added
 
 - Prometheus metrics endpoint register function
+- Custom gRPC server options to the gRPC config
 
 ### Changed
 

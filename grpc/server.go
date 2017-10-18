@@ -33,7 +33,7 @@ func NewServer(params ServerParams) (*grpc.Server, Err) {
 		params.HealthCollector.RegisterChecker(healthz.ReadinessCheck, healthz.NewTCPChecker(params.Config.Addr))
 	}
 
-	var options []grpc.ServerOption
+	options := params.Config.Options
 
 	if params.StreamInterceptor != nil {
 		options = append(options, grpc.StreamInterceptor(params.StreamInterceptor))
