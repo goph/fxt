@@ -33,3 +33,7 @@ import:
 - package: github.com/opentracing-contrib/go-stdlib
   subpackages:
   - nethttp
+- package: github.com/prometheus/client_golang
+  version: ~0.8.0
+  subpackages:
+  - prometheus/promhttp

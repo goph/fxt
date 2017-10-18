@@ -3,6 +3,10 @@
 
 ## Unreleased
 
+### Added
+
+- Prometheus metrics endpoint register function
+
 ### Changed
 
 - Moved Gorilla Mux router to `http/gorilla` package
