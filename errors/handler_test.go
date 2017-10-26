@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	"bytes"
+	stderrors "errors"
 
-	"github.com/goph/emperror"
 	"github.com/goph/fxt/errors"
 	"github.com/goph/fxt/log"
 	"github.com/stretchr/testify/assert"
@@ -26,7 +26,7 @@ func TestNewHandler(t *testing.T) {
 			Logger: logger,
 		})
 
-		err = emperror.New("error")
+		err = stderrors.New("error")
 
 		handler.Handle(err)
 

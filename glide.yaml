@@ -5,12 +5,12 @@ import:
 - package: go.uber.org/fx
   version: ^1.2.0
 - package: github.com/go-kit/kit
-  version: ~0.6.0
+  version: ^0.6.0
   subpackages:
   - log
   - log/level
 - package: github.com/goph/emperror
-  version: ~0.5.0
+  version: ^0.6.0
   subpackages:
   - log
 - package: github.com/airbrake/gobrake
@@ -34,6 +34,6 @@ import:
   subpackages:
   - nethttp
 - package: github.com/prometheus/client_golang
-  version: ~0.8.0
+  version: ^0.8.0
   subpackages:
   - prometheus/promhttp
