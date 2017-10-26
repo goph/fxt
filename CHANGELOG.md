@@ -1,7 +1,20 @@
 # Change Log
 
 
-## 0.5.0 - 2017-10-18
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+
+
+## [Unreleased]
+
+### Changed
+
+- Updated dependencies
+
+
+## [0.5.0] - 2017-10-18
 
 ### Added
 
@@ -19,7 +32,7 @@
 - Interceptors from gRPC constructor params
 
 
-## 0.4.0 - 2017-10-15
+## [0.4.0] - 2017-10-15
 
 ### Added
 
@@ -30,21 +43,21 @@
 - Logger is now optional in Jaeger tracer
 
 
-## 0.3.3 - 2017-10-13
+## [0.3.3] - 2017-10-13
 
 ### Fixed
 
 - Null pointer closer
 
 
-## 0.3.2 - 2017-10-13
+## [0.3.2] - 2017-10-13
 
 ### Fixed
 
 - Null pointer closer
 
 
-## 0.3.1 - 2017-10-13
+## [0.3.1] - 2017-10-13
 
 ### Changed
 
@@ -52,7 +65,7 @@
 - Register the daemon runner in the application lifecycle
 
 
-## 0.3.0 - 2017-10-13
+## [0.3.0] - 2017-10-13
 
 ### Added
 
@@ -70,7 +83,7 @@
 - Make configurations non-optional options
 
 
-## 0.2.0 - 2017-10-12
+## [0.2.0] - 2017-10-12
 
 ### Added
 
@@ -103,3 +116,13 @@
 - Debug server constructor (invoke fn)
 - Health collector constructor
 - Bootstrap options
+
+
+[Unreleased]: https://github.com/goph/emperror/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/goph/emperror/compare/v0.4.0...v0.5.0
+[0.4.0]: https://github.com/goph/emperror/compare/v0.3.3...v0.4.0
+[0.3.3]: https://github.com/goph/emperror/compare/v0.3.2...v0.3.3
+[0.3.2]: https://github.com/goph/emperror/compare/v0.3.1...v0.3.2
+[0.3.1]: https://github.com/goph/emperror/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/goph/emperror/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/goph/emperror/compare/v0.1.0...v0.2.0
