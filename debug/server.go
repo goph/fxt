@@ -11,6 +11,7 @@ import (
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"github.com/goph/fxt"
+	"github.com/pkg/errors"
 	"golang.org/x/net/trace"
 )
 
@@ -58,7 +59,7 @@ func NewServer(params ServerParams) (Handler, Err) {
 
 			lis, err := net.Listen(params.Config.Network, params.Config.Addr)
 			if err != nil {
-				return err
+				return errors.WithStack(err)
 			}
 
 			go func() {

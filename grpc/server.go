@@ -8,6 +8,7 @@ import (
 	"github.com/go-kit/kit/log/level"
 	"github.com/goph/fxt"
 	"github.com/goph/healthz"
+	"github.com/pkg/errors"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/reflection"
@@ -54,7 +55,7 @@ func NewServer(params ServerParams) (*grpc.Server, Err) {
 
 			lis, err := net.Listen(params.Config.Network, params.Config.Addr)
 			if err != nil {
-				return err
+				return errors.WithStack(err)
 			}
 
 			go func() {

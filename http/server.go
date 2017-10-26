@@ -10,6 +10,7 @@ import (
 	"github.com/go-kit/kit/log/level"
 	"github.com/goph/fxt"
 	"github.com/goph/healthz"
+	"github.com/pkg/errors"
 )
 
 // NewServer creates a new http server.
@@ -42,7 +43,7 @@ func NewServer(params ServerParams) Err {
 
 			lis, err := net.Listen(params.Config.Network, params.Config.Addr)
 			if err != nil {
-				return err
+				return errors.WithStack(err)
 			}
 
 			go func() {
