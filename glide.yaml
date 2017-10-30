@@ -14,7 +14,7 @@ import:
   subpackages:
   - log
 - package: github.com/airbrake/gobrake
-  version: ^3.1.0
+  version: ^3.3.2
 - package: github.com/opentracing/opentracing-go
   version: ^1.0.2
 - package: github.com/uber/jaeger-client-go
@@ -24,7 +24,7 @@ import:
 - package: github.com/goph/healthz
   version: ~0.9.0
 - package: google.golang.org/grpc
-  version: ^1.7.0
+  version: ^1.7.1
   subpackages:
   - grpclog
   - reflection
