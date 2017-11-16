@@ -14,3 +14,13 @@ func NewHealthCollector(handler Handler) healthz.Collector {
 
 	return healthCollector
 }
+
+// NewStatusChecker returns a new healthz.StatusChecker with "Healthy" as the default value.
+// It also registers the checker in the health collector.
+func NewStatusChecker(collector healthz.Collector) *healthz.StatusChecker {
+	status := healthz.NewStatusChecker(healthz.Healthy)
+
+	collector.RegisterChecker(healthz.ReadinessCheck, status)
+
+	return status
+}
