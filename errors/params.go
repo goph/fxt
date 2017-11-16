@@ -11,5 +11,5 @@ type HandlerParams struct {
 	dig.In
 
 	Logger   log.Logger         `optional:"true"`
-	Handlers []emperror.Handler `group:"emperror"`
+	Handlers []emperror.Handler `group:"error"`
 }
