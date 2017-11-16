@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc/reflection"
 )
 
-// NewServer creates a new grpc server.
+// NewServer creates a new gRPC server.
 func NewServer(params ServerParams) (*grpc.Server, Err) {
 	logger := params.Logger
 	if logger == nil {
