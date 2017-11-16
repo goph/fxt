@@ -7,18 +7,16 @@ import (
 
 // NewHandler returns a new error handler.
 func NewHandler(params HandlerParams) emperror.Handler {
-	var handlers []emperror.Handler
+	handlers := params.Handlers
 
-	if params.Handlers != nil {
-		handlers = params.Handlers
-	}
-
+	// Configure a log handler if a logger is provided
 	if params.Logger != nil {
 		handlers = append(handlers, emperror_log.NewHandler(params.Logger))
 	}
 
 	var handler emperror.Handler
 
+	// Check if a composite handler is necessary
 	if len(handlers) == 0 {
 		handler = emperror.NewNopHandler()
 	} else if len(handlers) == 1 {

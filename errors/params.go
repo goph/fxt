@@ -2,6 +2,7 @@ package errors
 
 import (
 	"github.com/go-kit/kit/log"
+	"github.com/goph/emperror"
 	"go.uber.org/dig"
 )
 
@@ -9,6 +10,6 @@ import (
 type HandlerParams struct {
 	dig.In
 
-	Logger   log.Logger   `optional:"true"`
-	Handlers HandlerStack `optional:"true"`
+	Logger   log.Logger         `optional:"true"`
+	Handlers []emperror.Handler `group:"emperror"`
 }

@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Changed
 
 - Upgrade [go.uber.org/dig](http://go.uber.org/dig) to minimum 1.2.0
+- Use dig 1.2 features in error handling
 
 
 ## [0.5.2] - 2017-10-30
