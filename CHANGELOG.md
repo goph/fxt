@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [0.6.1] - 2017-11-16
+
 ### Added
 
 - StatusChecker health check constructor
@@ -144,7 +147,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bootstrap options
 
 
-[Unreleased]: https://github.com/goph/fxt/compare/v0.6.0...HEAD
+[Unreleased]: https://github.com/goph/fxt/compare/v0.6.1...HEAD
+[0.6.1]: https://github.com/goph/fxt/compare/v0.6.0...v0.6.1
 [0.6.0]: https://github.com/goph/fxt/compare/v0.5.2...v0.6.0
 [0.5.2]: https://github.com/goph/fxt/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/goph/fxt/compare/v0.5.0...v0.5.1
