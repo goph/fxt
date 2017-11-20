@@ -5,35 +5,21 @@ import:
 - package: go.uber.org/fx
   version: ^1.2.0
 - package: github.com/go-kit/kit
-  version: ^0.6.0
-  subpackages:
-  - log
-  - log/level
+  version: ~0.6.0
 - package: github.com/goph/emperror
-  version: ^0.6.0
-  subpackages:
-  - log
+  version: ~0.6.0
 - package: github.com/airbrake/gobrake
   version: ^3.3.2
 - package: github.com/opentracing/opentracing-go
   version: ^1.0.2
 - package: github.com/uber/jaeger-client-go
   version: ^2.9.0
-  subpackages:
-  - config
 - package: github.com/goph/healthz
   version: ~0.9.0
 - package: google.golang.org/grpc
   version: ^1.7.1
-  subpackages:
-  - grpclog
-  - reflection
 - package: github.com/gorilla/mux
   version: ^1.5.0
 - package: github.com/opentracing-contrib/go-stdlib
-  subpackages:
-  - nethttp
 - package: github.com/prometheus/client_golang
-  version: ^0.8.0
-  subpackages:
-  - prometheus/promhttp
+  version: ~0.8.0
