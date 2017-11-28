@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `io.Writer` adapter for go-kit logger
+
 
 ## [0.6.2] - 2017-11-17
 
