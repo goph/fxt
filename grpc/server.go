@@ -4,9 +4,10 @@ import (
 	"context"
 	"net"
 
-	"github.com/go-kit/kit/log"
+	kitlog "github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"github.com/goph/fxt"
+	"github.com/goph/fxt/log"
 	"github.com/goph/healthz"
 	"github.com/pkg/errors"
 	"google.golang.org/grpc"
@@ -18,17 +19,17 @@ import (
 func NewServer(params ServerParams) (*grpc.Server, Err) {
 	logger := params.Logger
 	if logger == nil {
-		logger = log.NewNopLogger()
+		logger = kitlog.NewNopLogger()
 	}
 
-	logger = log.With(logger, "server", "grpc")
+	logger = kitlog.With(logger, "server", "grpc")
 
 	// TODO: separate log levels
 	// TODO: only set logger once
 	grpclog.SetLoggerV2(grpclog.NewLoggerV2(
-		log.NewStdlibAdapter(level.Info(logger)),
-		log.NewStdlibAdapter(level.Warn(logger)),
-		log.NewStdlibAdapter(level.Error(logger)),
+		log.NewWriterAdapter(level.Info(logger)),
+		log.NewWriterAdapter(level.Warn(logger)),
+		log.NewWriterAdapter(level.Error(logger)),
 	))
 
 	if params.HealthCollector != nil {

@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - `io.Writer` adapter for go-kit logger
 
+### Changed
+
+- Use `io.Writer` log adapter instead of the stdlib one in grpc log
+
 
 ## [0.6.2] - 2017-11-17
 
