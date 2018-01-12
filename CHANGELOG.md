@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - App config for SQL
 - App config for Airbrake
+- App config for Jaeger
 
 
 ## [0.6.3] - 2017-12-05
