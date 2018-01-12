@@ -25,3 +25,12 @@ func NewConfig(projectId int64, projectKey string) *Config {
 		ProjectKey: projectKey,
 	}
 }
+
+// AppConfig can be used in an application config to represent Airbrake connection details.
+// It supports github.com/goph/nest
+type AppConfig struct {
+	Enabled    bool   `env:""`
+	Endpoint   string `env:""`
+	ProjectID  int64  `env:"project_id"`
+	ProjectKey string `env:""`
+}
