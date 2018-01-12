@@ -21,3 +21,16 @@ func NewConfig(addr string) *Config {
 		Addr:    addr,
 	}
 }
+
+// AppClientConfig can be used in an application config to represent gRPC client connection details.
+// It supports github.com/goph/nest
+type AppClientConfig struct {
+	// Addr is the gRPC connection address.
+	Addr string `env:"" required:"true"`
+
+	// Host can be used when the connection address and the certificate hostname differs.
+	Host string `env:""`
+
+	// Insecure makes the client use insecure channel.
+	Insecure bool `env:""`
+}
