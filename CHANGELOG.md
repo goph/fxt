@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- App config for SQL
+
+
 ## [0.6.3] - 2017-12-05
 
 ### Added
