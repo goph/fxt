@@ -18,10 +18,6 @@ func NewConfig(driver string, dsn string) *Config {
 
 // AppConfig can be used in an application config to represent database connection details.
 // It supports github.com/goph/nest
-// It is recommended to use a prefix:
-//		type Config struct {
-//			Db sql.AppConfig `prefix:"db"`
-//		}
 type AppConfig struct {
 	Host string `env:"" required:"true"`
 	Port int    `env:"" default:"3306"`
