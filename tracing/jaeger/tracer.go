@@ -36,12 +36,12 @@ type kitLogger struct {
 	logger log.Logger
 }
 
-// Error implements the github.com/uber/jaeger-client-go/log.Logger interface.
+// Error implements the github.com/jaegertracing/jaeger-client-go/log.Logger interface.
 func (l *kitLogger) Error(msg string) {
 	level.Error(l.logger).Log("msg", msg)
 }
 
-// Infof implements the github.com/uber/jaeger-client-go/log.Logger interface.
+// Infof implements the github.com/jaegertracing/jaeger-client-go/log.Logger interface.
 func (l *kitLogger) Infof(msg string, args ...interface{}) {
 	level.Info(l.logger).Log("msg", fmt.Sprintf(msg, args...))
 }
