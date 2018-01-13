@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Upgrade Jaeger libraries
+- Use go-kit logger wrapper from jaeger lib
 
 
 ## [0.7.0] - 2018-01-12

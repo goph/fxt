@@ -1,13 +1,10 @@
 package jaeger
 
 import (
-	"fmt"
-
-	"github.com/go-kit/kit/log"
-	"github.com/go-kit/kit/log/level"
 	"github.com/goph/fxt"
 	"github.com/opentracing/opentracing-go"
 	jaegercfg "github.com/uber/jaeger-client-go/config"
+	"github.com/uber/jaeger-lib/client/log/go-kit"
 )
 
 // NewTracer returns a new opentracing tracer.
@@ -15,7 +12,7 @@ func NewTracer(params TracerParams) (opentracing.Tracer, error) {
 	var jaegerOptions []jaegercfg.Option
 
 	if params.Logger != nil {
-		jaegerOptions = append(jaegerOptions, jaegercfg.Logger(&kitLogger{params.Logger}))
+		jaegerOptions = append(jaegerOptions, jaegercfg.Logger(xkit.NewLogger(params.Logger)))
 	}
 
 	if params.MetricsFactory != nil {
@@ -32,19 +29,4 @@ func NewTracer(params TracerParams) (opentracing.Tracer, error) {
 	})
 
 	return tracer, nil
-}
-
-// kitLogger wraps the application logger instance in a Jaeger compatible one.
-type kitLogger struct {
-	logger log.Logger
-}
-
-// Error implements the github.com/jaegertracing/jaeger-client-go/log.Logger interface.
-func (l *kitLogger) Error(msg string) {
-	level.Error(l.logger).Log("msg", msg)
-}
-
-// Infof implements the github.com/jaegertracing/jaeger-client-go/log.Logger interface.
-func (l *kitLogger) Infof(msg string, args ...interface{}) {
-	level.Info(l.logger).Log("msg", fmt.Sprintf(msg, args...))
 }
