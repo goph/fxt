@@ -22,7 +22,6 @@ func NewTracer(params TracerParams) (opentracing.Tracer, error) {
 		jaegerOptions = append(jaegerOptions, jaegercfg.Metrics(params.MetricsFactory))
 	}
 
-	// TODO: handle closer
 	tracer, closer, err := params.Config.JaegerConfig.New(params.Config.ServiceName, jaegerOptions...)
 	if err != nil {
 		return nil, err
