@@ -47,7 +47,7 @@ func (c *carrier) GetCorrelationID(ctx context.Context) (string, bool) {
 
 	correlationID := span.BaggageItem(c.restrictedKey)
 
-	return correlationID, correlationID == ""
+	return correlationID, correlationID != ""
 }
 
 func (c *carrier) SetCorrelationID(ctx context.Context, correlationID string) context.Context {
