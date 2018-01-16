@@ -10,9 +10,9 @@ import (
 const TagCorrelationID = "correlationid"
 
 // UnaryServerInterceptor returns a new unary server interceptor for propagating correlation ID.
-func UnaryServerInterceptor(generator generator, carrier Carrier) grpc.UnaryServerInterceptor {
+func UnaryServerInterceptor(idGenerator IdGenerator, carrier Carrier) grpc.UnaryServerInterceptor {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
-		ctx = serverCorrelationID(generator, carrier, ctx)
+		ctx = serverCorrelationID(idGenerator, carrier, ctx)
 
 		resp, err := handler(ctx, req)
 
@@ -21,9 +21,9 @@ func UnaryServerInterceptor(generator generator, carrier Carrier) grpc.UnaryServ
 }
 
 // StreamServerInterceptor returns a new streaming server interceptor for propagating correlation ID.
-func StreamServerInterceptor(generator generator, carrier Carrier) grpc.StreamServerInterceptor {
+func StreamServerInterceptor(idGenerator IdGenerator, carrier Carrier) grpc.StreamServerInterceptor {
 	return func(srv interface{}, stream grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
-		ctx := serverCorrelationID(generator, carrier, stream.Context())
+		ctx := serverCorrelationID(idGenerator, carrier, stream.Context())
 
 		wrappedStream := grpc_middleware.WrapServerStream(stream)
 		wrappedStream.WrappedContext = ctx
@@ -34,11 +34,11 @@ func StreamServerInterceptor(generator generator, carrier Carrier) grpc.StreamSe
 	}
 }
 
-func serverCorrelationID(generator generator, carrier Carrier, ctx context.Context) context.Context {
+func serverCorrelationID(idGenerator IdGenerator, carrier Carrier, ctx context.Context) context.Context {
 	correlationID, ok := carrier.GetCorrelationID(ctx)
 	if !ok {
 		if correlationID == "" {
-			correlationID = generator.Generate()
+			correlationID = idGenerator.Generate()
 		}
 
 		ctx = carrier.SetCorrelationID(ctx, correlationID)

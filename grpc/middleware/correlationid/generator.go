@@ -1,6 +1,6 @@
 package correlationid
 
-type generator interface {
+type IdGenerator interface {
 	// Generate generates a unique string which can be used as a correlation ID.
 	Generate() string
 }
