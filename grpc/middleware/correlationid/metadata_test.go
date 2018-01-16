@@ -23,6 +23,19 @@ func TestMetadataCarrier_GetCorrelationID(t *testing.T) {
 	assert.True(t, ok)
 }
 
+func TestMetadataCarrier_GetCorrelationID_Empty(t *testing.T) {
+	md := metautils.NiceMD{}
+	md.Set("correlationid", "")
+	ctx := md.ToIncoming(context.Background())
+
+	c := correlationid.NewMetadataCarrier()
+
+	correlationID, ok := c.GetCorrelationID(ctx)
+
+	assert.Equal(t, "", correlationID)
+	assert.False(t, ok)
+}
+
 func TestMetadataCarrier_SetCorrelationID(t *testing.T) {
 	c := correlationid.NewMetadataCarrier()
 

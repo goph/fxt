@@ -26,6 +26,22 @@ func TestCarrier_GetCorrelationID(t *testing.T) {
 	assert.True(t, ok)
 }
 
+func TestCarrier_GetCorrelationID_Empty(t *testing.T) {
+	tracer := mocktracer.New()
+
+	span := tracer.StartSpan("test")
+	span.SetBaggageItem("correlation_id", "")
+	ctx := context.Background()
+	ctx = opentracing.ContextWithSpan(ctx, span)
+
+	c := otcarrier.New()
+
+	correlationID, ok := c.GetCorrelationID(ctx)
+
+	assert.Equal(t, "", correlationID)
+	assert.False(t, ok)
+}
+
 func TestCarrier_SetCorrelationID(t *testing.T) {
 	tracer := mocktracer.New()
 
