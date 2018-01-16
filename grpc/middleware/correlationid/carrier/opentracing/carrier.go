@@ -40,7 +40,7 @@ func New(opts ...Option) *carrier {
 func (c *carrier) GetCorrelationID(ctx context.Context) (string, bool) {
 	span := opentracing.SpanFromContext(ctx)
 	if span == nil {
-		grpclog.Info("grpc_correlationid: opentracing span not found for getting correlation id")
+		grpclog.Error("grpc_correlationid: opentracing span not found for getting correlation id")
 
 		return "", false
 	}
@@ -53,7 +53,7 @@ func (c *carrier) GetCorrelationID(ctx context.Context) (string, bool) {
 func (c *carrier) SetCorrelationID(ctx context.Context, correlationID string) context.Context {
 	span := opentracing.SpanFromContext(ctx)
 	if span == nil {
-		grpclog.Info("grpc_correlationid: opentracing span not found for setting correlation id")
+		grpclog.Error("grpc_correlationid: opentracing span not found for setting correlation id")
 
 		return ctx
 	}
