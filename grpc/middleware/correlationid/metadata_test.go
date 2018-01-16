@@ -23,6 +23,16 @@ func TestMetadataCarrier_GetCorrelationID(t *testing.T) {
 	assert.True(t, ok)
 }
 
+func TestMetadataCarrier_SetCorrelationID(t *testing.T) {
+	c := correlationid.NewMetadataCarrier()
+
+	ctx := c.SetCorrelationID(context.Background(), "1234")
+
+	md := metautils.ExtractIncoming(ctx)
+
+	assert.Equal(t, "1234", md.Get("correlationid"))
+}
+
 func TestWithHeader(t *testing.T) {
 	md := metautils.NiceMD{}
 	md.Set("cid", "1234")
@@ -40,16 +50,6 @@ func TestWithHeader(t *testing.T) {
 	md = metautils.ExtractIncoming(ctx)
 
 	assert.Equal(t, "1234", md.Get("cid"))
-}
-
-func TestMetadataCarrier_SetCorrelationID(t *testing.T) {
-	c := correlationid.NewMetadataCarrier()
-
-	ctx := c.SetCorrelationID(context.Background(), "1234")
-
-	md := metautils.ExtractIncoming(ctx)
-
-	assert.Equal(t, "1234", md.Get("correlationid"))
 }
 
 func TestMetadataSourceCarrier_GetCorrelationID(t *testing.T) {
