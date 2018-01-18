@@ -24,7 +24,6 @@ type AppConfig struct {
 	User string `env:"" required:"true"`
 	Pass string `env:""` // Required removed for now because empty value is not supported by Viper
 	Name string `env:"" required:"true"`
-	Tls  bool   `env:""`
 }
 
 // Dsn returns the DSN created form the configuration.
