@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - [Godog](https://github.com/DATA-DOG/godog) runner configuration
 - Build tag helpers to determine whether a test is executed with `unit`, `acceptance` or `integration` tags
+- `GetFreePort` for getting a free TCP port (useful for acceptance tests involving a server connection)
 
 
 ## [0.10.0] - 2018-01-18
