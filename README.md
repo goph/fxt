@@ -5,7 +5,7 @@
 [![GoDoc](http://img.shields.io/badge/godoc-reference-5272B4.svg?style=flat-square)](https://godoc.org/github.com/goph/fxt)
 
 
-**Extensions for [go.uber.org/fx](https://go.uber.org/fx).**
+**fxt is an application builder kit mainly based on [go.uber.org/fx](https://go.uber.org/fx).**
 
 
 ## Installation
