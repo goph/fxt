@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Segmentation fault when Godog runner used without initialization
+
 
 ## [0.11.0] - 2018-01-22
 

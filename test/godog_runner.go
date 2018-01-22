@@ -12,6 +12,11 @@ import (
 	"github.com/DATA-DOG/godog"
 )
 
+// Custom Godog error codes
+const (
+	godogExitNil int = iota + 3
+)
+
 // GodogRunnerOption sets an option on the Godog runner.
 type GodogRunnerOption func(*GodogRunner)
 
@@ -85,6 +90,12 @@ func (r *GodogRunner) RegisterFeatureContext(ctx func(s *godog.Suite)) {
 }
 
 func (r *GodogRunner) Run() int {
+	// Because of the nature of how this runner is used, this isn't a rare scenario, so we handle it accordingly.
+	// Still, make sure the runner is only ran when necessary.
+	if r == nil {
+		return godogExitNil
+	}
+
 	r.mu.Lock()
 	defer r.mu.Unlock()
 

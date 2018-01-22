@@ -23,6 +23,13 @@ func TestGodogRunner_Run(t *testing.T) {
 	require.Equal(t, 0, exitCode)
 }
 
+func TestGodogRunner_Run_Nil(t *testing.T) {
+	var runner *test.GodogRunner
+
+	exitCode := runner.Run()
+	require.Equal(t, 3, exitCode)
+}
+
 func TestWithSuiteName(t *testing.T) {
 	buf := new(bytes.Buffer)
 
