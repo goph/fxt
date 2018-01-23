@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- `fx.App` wrapper so that closer does not have to be populated
+- `fx.App` wrapper so that closer does not have to be manually populated
+- `fxtest.App` wrapper so that closer does not have to be manually populated
 
 ### Fixed
 
