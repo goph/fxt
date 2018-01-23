@@ -32,5 +32,5 @@ type AppConfig struct {
 	Enabled    bool   `env:""`
 	Endpoint   string `env:""`
 	ProjectID  int64  `env:"project_id"`
-	ProjectKey string `env:""`
+	ProjectKey string `env:"" split_words:"true"`
 }

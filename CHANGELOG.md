@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Invoke function for configuring global airbrake logger
 
+### Fixed
+
+- Airbrake ProjectKey configuration option
+
 
 ## [0.14.0] - 2018-01-23
 
