@@ -28,5 +28,7 @@ import:
   version: ~0.8.0
 - package: github.com/DATA-DOG/godog
   version: ~0.7.4
+- package: github.com/joho/godotenv
+  version: ^1.2.0
 testImport:
 - package: github.com/stretchr/testify

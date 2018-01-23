@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Application context function for Godog
+- Environment variable loading helper
 
 
 ## [0.13.0] - 2018-01-23
