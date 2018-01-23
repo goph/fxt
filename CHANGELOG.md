@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- `fx.App` wrapper so that closer does not have to be populated
+
 ### Fixed
 
 - Segmentation fault when Godog runner used without initialization
