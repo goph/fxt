@@ -23,3 +23,10 @@ func New(opts ...fx.Option) *App {
 func (a *App) Close() error {
 	return a.closer.Close()
 }
+
+// ApplicationInfo is an optional set of information that can be set by the runtime environment (eg. console application).
+type ApplicationInfo struct {
+	Version    string
+	CommitHash string
+	BuildDate  string
+}

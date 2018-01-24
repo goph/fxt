@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Invoke function for configuring global airbrake logger
+- Application info struct for common application details
 
 ### Fixed
 
