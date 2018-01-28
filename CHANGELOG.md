@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- gRPC Dial function
+
 
 ## [0.15.1] - 2018-01-24
 
