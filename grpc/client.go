@@ -3,7 +3,7 @@ package grpc
 import "google.golang.org/grpc"
 
 // Dial creates a client connection.
-func Dial(config *AppClientConfig, options ...grpc.DialOption) (*grpc.ClientConn, error) {
+func Dial(config AppClientConfig, options ...grpc.DialOption) (*grpc.ClientConn, error) {
 	if config.Insecure {
 		options = append(options, grpc.WithInsecure())
 
