@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - gRPC Dial function
 - DB acceptance context
 - gRPC client acceptance context
+- App acceptance context
 
 ## [0.15.1] - 2018-01-24
 
