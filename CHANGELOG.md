@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- gRPC client acceptance context moved to subpackage to avoid dependency
+
 ### Removed
 
 - AppContext function

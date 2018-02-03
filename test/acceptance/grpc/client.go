@@ -1,4 +1,4 @@
-package acceptance
+package grpc
 
 import (
 	"github.com/DATA-DOG/godog"
@@ -6,8 +6,8 @@ import (
 	"google.golang.org/grpc"
 )
 
-// GrpcClientContext creates a new client connection before every scenario.
-type GrpcClientContext struct {
+// ClientContext creates a new client connection before every scenario.
+type ClientContext struct {
 	config fxgrpc.AppClientConfig
 
 	conn *grpc.ClientConn
@@ -15,14 +15,14 @@ type GrpcClientContext struct {
 	frozen bool
 }
 
-// NewGrpcClientContext returns a new GrpcClientContext which creates a new client connection before every scenario.
-func NewGrpcClientContext(config fxgrpc.AppClientConfig) *GrpcClientContext {
-	return &GrpcClientContext{
+// NewClientContext returns a new ClientContext which creates a new client connection before every scenario.
+func NewClientContext(config fxgrpc.AppClientConfig) *ClientContext {
+	return &ClientContext{
 		config: config,
 	}
 }
 
-func (c *GrpcClientContext) FeatureContext(s *godog.Suite) {
+func (c *ClientContext) FeatureContext(s *godog.Suite) {
 	if c.frozen {
 		panic("trying to use a frozen feature context")
 	}
@@ -44,6 +44,6 @@ func (c *GrpcClientContext) FeatureContext(s *godog.Suite) {
 	})
 }
 
-func (c *GrpcClientContext) Conn() *grpc.ClientConn {
+func (c *ClientContext) Conn() *grpc.ClientConn {
 	return c.conn
 }
