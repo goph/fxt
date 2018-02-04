@@ -50,8 +50,8 @@ func AppendRunner(target Runner, runners ...Runner) Runner {
 	return r
 }
 
-// RunnerRegistry accepts runner factory implementations and creates a runner list from them.
-type RunnerRegistry struct {
+// RunnerFactoryRegistry accepts runner factory implementations and creates a runner list from them.
+type RunnerFactoryRegistry struct {
 	factories []RunnerFactory
 
 	mu sync.Mutex
@@ -59,7 +59,7 @@ type RunnerRegistry struct {
 
 // Register appends a runner factory to the list.
 // It is safe to call this method from multiple goroutines if necessary.
-func (r *RunnerRegistry) Register(factory RunnerFactory) {
+func (r *RunnerFactoryRegistry) Register(factory RunnerFactory) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -67,7 +67,7 @@ func (r *RunnerRegistry) Register(factory RunnerFactory) {
 }
 
 // CreateRunner creates test runners from the underlying factories.
-func (r *RunnerRegistry) CreateRunner() (Runner, error) {
+func (r *RunnerFactoryRegistry) CreateRunner() (Runner, error) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 

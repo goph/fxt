@@ -124,7 +124,7 @@ func TestAppendRunner_NothingToAppend(t *testing.T) {
 	r1.AssertExpectations(t)
 }
 
-func TestRunnerRegistry(t *testing.T) {
+func TestRunnerFactoryRegistry(t *testing.T) {
 	r1 := new(RunnerMock)
 	r1.On("Run").Return(0)
 
@@ -137,7 +137,7 @@ func TestRunnerRegistry(t *testing.T) {
 	f2 := new(RunnerFactoryMock)
 	f2.On("CreateRunner").Return(r2, nil)
 
-	registry := test.RunnerRegistry{}
+	registry := test.RunnerFactoryRegistry{}
 
 	registry.Register(f1)
 	registry.Register(f2)
@@ -153,7 +153,7 @@ func TestRunnerRegistry(t *testing.T) {
 	f2.AssertExpectations(t)
 }
 
-func TestRunnerRegistry_Error(t *testing.T) {
+func TestRunnerFactoryRegistry_Error(t *testing.T) {
 	r1 := new(RunnerMock)
 	r1.On("Run").Return(0)
 
@@ -166,7 +166,7 @@ func TestRunnerRegistry_Error(t *testing.T) {
 
 	f3 := new(RunnerFactoryMock)
 
-	registry := test.RunnerRegistry{}
+	registry := test.RunnerFactoryRegistry{}
 
 	registry.Register(f1)
 	registry.Register(f2)
