@@ -8,8 +8,9 @@ type Runner interface {
 	Run() int
 }
 
-// runnerFactory creates a new runner.
-type runnerFactory interface {
+// RunnerFactory creates a new runner.
+type RunnerFactory interface {
+	// CreateRunner creates a test runner.
 	CreateRunner() (Runner, error)
 }
 
@@ -51,14 +52,14 @@ func AppendRunner(target Runner, runners ...Runner) Runner {
 
 // RunnerRegistry accepts runner factory implementations and creates a runner list from them.
 type RunnerRegistry struct {
-	factories []runnerFactory
+	factories []RunnerFactory
 
 	mu sync.Mutex
 }
 
 // Register appends a runner factory to the list.
 // It is safe to call this method from multiple goroutines if necessary.
-func (r *RunnerRegistry) Register(factory runnerFactory) {
+func (r *RunnerRegistry) Register(factory RunnerFactory) {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -84,7 +85,7 @@ func (r *RunnerRegistry) CreateRunner() (Runner, error) {
 	return runners, nil
 }
 
-// RunnerFactoryFunc wraps a function implementing the runnerFactory interface.
+// RunnerFactoryFunc wraps a function implementing the RunnerFactory interface.
 type RunnerFactoryFunc func() (Runner, error)
 
 func (fn RunnerFactoryFunc) CreateRunner() (Runner, error) {
