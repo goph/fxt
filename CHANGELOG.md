@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Runner interface for test runners (already implemented by Godog and Main test runners)
+- Runner list for merging test runners into one
+
 ### Changed
 
 - gRPC client acceptance context moved to subpackage to avoid dependency
