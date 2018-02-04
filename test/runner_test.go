@@ -180,3 +180,20 @@ func TestRunnerRegistry_Error(t *testing.T) {
 	f2.AssertExpectations(t)
 	f3.AssertNotCalled(t, "CreateRunner")
 }
+
+func TestRunnerFactoryFunc_CreateRunner(t *testing.T) {
+	r1 := new(RunnerMock)
+	r1.On("Run").Return(0)
+
+	f1 := new(RunnerFactoryMock)
+	f1.On("CreateRunner").Return(r1, nil)
+
+	factoryFunc := test.RunnerFactoryFunc(f1.CreateRunner)
+
+	runner, err := factoryFunc.CreateRunner()
+	require.NoError(t, err)
+
+	result := runner.Run()
+	assert.Equal(t, 0, result)
+	r1.AssertExpectations(t)
+}

@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Test runner interface for test runners (already implemented by Godog and Main test runners)
 - Test runner list for merging test runners into one
 - Test runner factories
+- Function type for test runner factories
 
 ### Changed
 

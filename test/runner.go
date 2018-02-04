@@ -83,3 +83,10 @@ func (r *RunnerRegistry) CreateRunner() (Runner, error) {
 
 	return runners, nil
 }
+
+// RunnerFactoryFunc wraps a function implementing the runnerFactory interface.
+type RunnerFactoryFunc func() (Runner, error)
+
+func (fn RunnerFactoryFunc) CreateRunner() (Runner, error) {
+	return fn()
+}
