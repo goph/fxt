@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- DB connection configuration
+- database/sql: DB connection configuration
+- database/sql: Utility function to make the master connection the primary one
 
 
 ## [0.17.0] - 2017-02-04

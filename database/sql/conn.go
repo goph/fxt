@@ -57,3 +57,8 @@ func NewMasterSlaveConnection(params MasterSlaveConnectionParams) (MasterSlaveCo
 
 	return result, err
 }
+
+// MakeMasterPrimaryConnection makes the master connection the primary one to be used as *sql.DB.
+func MakeMasterPrimaryConnection(result MasterSlaveConnectionResult) (*sql.DB) {
+	return result.Master
+}
