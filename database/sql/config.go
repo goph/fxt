@@ -1,11 +1,18 @@
 package sql
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 // Config holds a list of options used during the debug server construction.
 type Config struct {
 	Driver string
 	Dsn    string
+
+	ConnMaxLifetime time.Duration
+	MaxIdleConns    int
+	MaxOpenConns    int
 }
 
 // NewConfig returns a new config populated with default values.

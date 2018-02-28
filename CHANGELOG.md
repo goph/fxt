@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- DB connection configuration
+
 
 ## [0.17.0] - 2017-02-04
 

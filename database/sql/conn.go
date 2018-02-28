@@ -15,6 +15,11 @@ func NewConnection(params ConnectionParams) (*sql.DB, error) {
 		return nil, err
 	}
 
+	// Connection options
+	db.SetConnMaxLifetime(params.Config.ConnMaxLifetime)
+	db.SetMaxIdleConns(params.Config.MaxIdleConns)
+	db.SetMaxOpenConns(params.Config.MaxOpenConns)
+
 	if params.HealthCollector != nil {
 		params.HealthCollector.RegisterChecker(healthz.ReadinessCheck, healthz.NewPingChecker(db))
 	}
