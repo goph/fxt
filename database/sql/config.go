@@ -10,9 +10,15 @@ type Config struct {
 	Driver string
 	Dsn    string
 
+	// See https://golang.org/pkg/database/sql/#DB.SetConnMaxLifetime
 	ConnMaxLifetime time.Duration
-	MaxIdleConns    int // Zero means no change (default), negative means 0, positive means itself
-	MaxOpenConns    int
+
+	// Zero means no change (default), negative means 0, positive means itself
+	// See https://golang.org/pkg/database/sql/#DB.SetMaxIdleConns
+	MaxIdleConns int
+
+	// See https://golang.org/pkg/database/sql/#DB.SetMaxOpenConns
+	MaxOpenConns int
 }
 
 // NewConfig returns a new config populated with default values.
