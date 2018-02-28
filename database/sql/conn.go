@@ -53,7 +53,7 @@ func NewMasterSlaveConnection(params MasterSlaveConnectionParams) (MasterSlaveCo
 	if err != nil {
 		return result, err
 	}
-	result.Master = db
+	result.Slave = db
 
 	return result, err
 }
