@@ -11,7 +11,7 @@ type Config struct {
 	Dsn    string
 
 	ConnMaxLifetime time.Duration
-	MaxIdleConns    int
+	MaxIdleConns    int // Zero means no change (default), negative means 0, positive means itself
 	MaxOpenConns    int
 }
 

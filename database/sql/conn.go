@@ -17,8 +17,14 @@ func NewConnection(params ConnectionParams) (*sql.DB, error) {
 
 	// Connection options
 	db.SetConnMaxLifetime(params.Config.ConnMaxLifetime)
-	db.SetMaxIdleConns(params.Config.MaxIdleConns)
 	db.SetMaxOpenConns(params.Config.MaxOpenConns)
+
+	// Setting the default value of the field (which is zero) means no idle connections.
+	// To maintain the internal default behavior DB, zero means no change, negative values mean zero (no idle),
+	// positive values mean themselves.
+	if params.Config.MaxIdleConns != 0 {
+		db.SetMaxIdleConns(params.Config.MaxIdleConns)
+	}
 
 	if params.HealthCollector != nil {
 		params.HealthCollector.RegisterChecker(healthz.ReadinessCheck, healthz.NewPingChecker(db))
