@@ -5,6 +5,7 @@ import (
 
 	"github.com/goph/fxt"
 	"github.com/goph/healthz"
+	"go.uber.org/dig"
 )
 
 // NewConnection creates a new database connection and optionally registers a health check.
@@ -65,6 +66,10 @@ func NewMasterSlaveConnection(params MasterSlaveConnectionParams) (MasterSlaveCo
 }
 
 // MakeMasterPrimaryConnection makes the master connection the primary one to be used as *sql.DB.
-func MakeMasterPrimaryConnection(result MasterSlaveConnectionResult) (*sql.DB) {
+func MakeMasterPrimaryConnection(result struct {
+	dig.In
+
+	Master *sql.DB `name:"master"`
+}) (*sql.DB) {
 	return result.Master
 }

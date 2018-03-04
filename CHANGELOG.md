@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - database/sql: Comments for DB connection config
 
+### Fixed
+
+- database/sql: Invalid dependency injection container parameter
+
 
 ## [0.19.0] - 2018-02-28
 
