@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [0.19.1] - 2018-03-05
+
 ### Added
 
 - database/sql: Comments for DB connection config
@@ -312,7 +315,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bootstrap options
 
 
-[Unreleased]: https://github.com/goph/fxt/compare/v0.19.0...HEAD
+[Unreleased]: https://github.com/goph/fxt/compare/v0.19.1...HEAD
+[0.19.1]: https://github.com/goph/fxt/compare/v0.19.0...v0.19.1
 [0.19.0]: https://github.com/goph/fxt/compare/v0.18.0...v0.19.0
 [0.18.0]: https://github.com/goph/fxt/compare/v0.17.0...v0.18.0
 [0.17.0]: https://github.com/goph/fxt/compare/v0.16.0...v0.17.0
