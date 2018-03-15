@@ -1,9 +1,10 @@
 package prometheus
 
 import (
-	"fmt"
+	stdlog "log"
 
 	"github.com/go-kit/kit/log"
+	"github.com/go-kit/kit/log/level"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
@@ -17,16 +18,7 @@ func RegisterHandler(params HandlerParams) {
 	params.Handler.Handle("/metrics", promhttp.HandlerFor(params.Gatherer, opts))
 }
 
-// promLogger is a simple implementation of the promhttp.Logger interface.
-type promLogger struct {
-	logger log.Logger
-}
-
-func (l *promLogger) Println(v ...interface{}) {
-	l.logger.Log("msg", fmt.Sprintln(v...))
-}
-
 // NewLogger creates a new, promhttp compliant logger instance.
 func NewLogger(logger log.Logger) (promhttp.Logger) {
-	return &promLogger{logger}
+	return stdlog.New(log.NewStdlibAdapter(level.Error(logger)), "prometheus", 0)
 }
