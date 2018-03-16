@@ -11,11 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-- Prometheus instance
+- metrics/prometheus: Prometheus instance
 
 ### Changed
 
-- Moved prometheus handler to debug package
+- metrics/prometheus: Moved prometheus handler to debug package
 
 
 ## [0.19.1] - 2018-03-05
