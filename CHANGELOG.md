@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Prometheus instance
+
+### Changed
+
+- Moved prometheus handler to debug package
+
 
 ## [0.19.1] - 2018-03-05
 
