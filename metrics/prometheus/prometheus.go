@@ -7,19 +7,24 @@ import (
 )
 
 // New registers new instances of registerer and gatherer in the container.
-func New() (prometheus.Registerer, prometheus.Gatherer, error) {
+func New() (prometheus.Registerer, prometheus.Gatherer) {
 	registry := prometheus.NewRegistry()
 
-	err := registerDefaultCollectors(registry)
-	if err != nil {
-		return nil, nil, err
-	}
-
-	return registry, registry, nil
+	return registry, registry
 }
 
-// registerDefaultCollectors registers default metric collectors in a prometheus registerer instance.
-func registerDefaultCollectors(registerer prometheus.Registerer) error {
+// NewWithGlobal registers new instances of registerer and gatherer in the container.
+//
+// It also merges the gatherer instance with the global one.
+func NewWithGlobal() (prometheus.Registerer, prometheus.Gatherer) {
+	registerer, gatherer := New()
+	gatherer = prometheus.Gatherers{gatherer, prometheus.DefaultGatherer}
+
+	return registerer, gatherer
+}
+
+// RegisterDefaultCollectors registers default metric collectors in a prometheus registerer instance.
+func RegisterDefaultCollectors(registerer prometheus.Registerer) error {
 	err := registerer.Register(prometheus.NewProcessCollector(os.Getpid(), ""))
 	if err != nil {
 		return err
