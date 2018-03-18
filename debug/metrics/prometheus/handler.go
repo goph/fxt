@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
+	fxlog "github.com/goph/fxt/log"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
@@ -20,5 +21,5 @@ func RegisterHandler(params HandlerParams) {
 
 // NewLogger creates a new, promhttp compliant logger instance.
 func NewLogger(logger log.Logger) (promhttp.Logger) {
-	return stdlog.New(log.NewStdlibAdapter(level.Error(logger)), "prometheus", 0)
+	return stdlog.New(fxlog.NewWriterAdapter(level.Error(logger)), "prometheus", 0)
 }
