@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - metrics/prometheus: Prometheus instance
 - tracing/jaeger: Prometheus metrics factory
+- Component log context to prometheus and jaeger
 
 ### Changed
 

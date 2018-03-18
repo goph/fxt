@@ -21,5 +21,5 @@ func RegisterHandler(params HandlerParams) {
 
 // NewLogger creates a new, promhttp compliant logger instance.
 func NewLogger(logger log.Logger) (promhttp.Logger) {
-	return stdlog.New(fxlog.NewWriterAdapter(level.Error(logger)), "prometheus", 0)
+	return stdlog.New(fxlog.NewWriterAdapter(level.Error(log.With(logger, "component", "prometheus"))), "", 0)
 }
