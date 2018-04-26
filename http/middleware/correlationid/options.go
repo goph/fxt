@@ -1,9 +1,5 @@
 package correlationid
 
-const (
-	defaultHeader = "Correlation-ID"
-)
-
 // Option is used to define middleware configuration.
 type Option interface {
 	apply(*middleware)
