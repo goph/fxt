@@ -3,18 +3,20 @@ package correlationid_test
 import (
 	"testing"
 
+	"context"
+
 	"github.com/goph/fxt/grpc/middleware/correlationid"
-	"github.com/goph/fxt/grpc/middleware/correlationid/internal/mocks"
+	"github.com/goph/fxt/internal/correlationid/mocks"
+	_mocks "github.com/goph/fxt/grpc/middleware/correlationid/internal/mocks"
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"github.com/stretchr/testify/assert"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 )
 
 func TestUnaryServerInterceptor(t *testing.T) {
-	idGenerator := new(mocks.IdGenerator)
-	carrier := new(mocks.Carrier)
+	generator := new(mocks.Generator)
+	carrier := new(_mocks.Carrier)
 
 	ctx := context.Background()
 
@@ -25,7 +27,7 @@ func TestUnaryServerInterceptor(t *testing.T) {
 
 			return handler(ctx, req)
 		},
-		correlationid.UnaryServerInterceptor(idGenerator, carrier),
+		correlationid.UnaryServerInterceptor(generator, carrier),
 	)
 
 	var called bool
@@ -41,15 +43,15 @@ func TestUnaryServerInterceptor(t *testing.T) {
 	})
 
 	assert.True(t, called)
-	idGenerator.AssertNotCalled(t, "Generate")
+	generator.AssertNotCalled(t, "Generate")
 	carrier.AssertExpectations(t)
 }
 
 func TestUnaryServerInterceptor_Empty(t *testing.T) {
-	idGenerator := new(mocks.IdGenerator)
-	carrier := new(mocks.Carrier)
+	generator := new(mocks.Generator)
+	carrier := new(_mocks.Carrier)
 
-	idGenerator.On("Generate").Return("1234")
+	generator.On("Generate").Return("1234")
 
 	ctx := context.Background()
 
@@ -61,7 +63,7 @@ func TestUnaryServerInterceptor_Empty(t *testing.T) {
 
 			return handler(ctx, req)
 		},
-		correlationid.UnaryServerInterceptor(idGenerator, carrier),
+		correlationid.UnaryServerInterceptor(generator, carrier),
 	)
 
 	var called bool
@@ -77,6 +79,6 @@ func TestUnaryServerInterceptor_Empty(t *testing.T) {
 	})
 
 	assert.True(t, called)
-	idGenerator.AssertExpectations(t)
+	generator.AssertExpectations(t)
 	carrier.AssertExpectations(t)
 }

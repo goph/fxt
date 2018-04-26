@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- context: New package for basic context keys
+- http: correlation ID middleware
+
+### Changed
+
+- Move random string generation to internal package for reusability
+- Move common Correlation ID related interfaces to `internal/correlationid` package
+- Use `context.Context` wherever possible
+
 
 ## [0.21.0] - 2018-04-26
 

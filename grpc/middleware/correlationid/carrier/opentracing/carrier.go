@@ -1,8 +1,9 @@
 package opentracing
 
 import (
+	"context"
+
 	"github.com/opentracing/opentracing-go"
-	"golang.org/x/net/context"
 	"google.golang.org/grpc/grpclog"
 )
 

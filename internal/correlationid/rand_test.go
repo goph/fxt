@@ -3,7 +3,7 @@ package correlationid_test
 import (
 	"testing"
 
-	"github.com/goph/fxt/grpc/middleware/correlationid"
+	"github.com/goph/fxt/internal/correlationid"
 	"github.com/stretchr/testify/assert"
 )
 

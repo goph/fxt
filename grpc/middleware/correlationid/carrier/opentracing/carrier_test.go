@@ -3,11 +3,12 @@ package opentracing_test
 import (
 	"testing"
 
+	"context"
+
 	otcarrier "github.com/goph/fxt/grpc/middleware/correlationid/carrier/opentracing"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/mocktracer"
 	"github.com/stretchr/testify/assert"
-	"golang.org/x/net/context"
 )
 
 func TestCarrier_GetCorrelationID(t *testing.T) {

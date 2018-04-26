@@ -1,7 +1,10 @@
-package correlationid
+package internal
 
-import "golang.org/x/net/context"
+import "context"
 
+//go:generate mockery -name=Carrier
+
+// Carrier retrieves and packs a correlation ID from/into a context.
 type Carrier interface {
 	// GetCorrelationID returns an existing correlation ID.
 	// If the second argument is false, the interceptor attempts to set the correlation ID.
