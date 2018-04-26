@@ -8,18 +8,15 @@ import (
 
 	"github.com/goph/fxt/context"
 	"github.com/goph/fxt/http/middleware/correlationid"
-	"github.com/goph/fxt/internal/correlationid/mocks"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
 func TestMiddleware_Handler(t *testing.T) {
-	generator := new(mocks.Generator)
-
 	var cid string
 	var ok bool
-	middleware := correlationid.New(generator)
-	ts := httptest.NewServer(middleware.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	m := correlationid.New()
+	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cid, ok = context.CorrleationId(r.Context())
 	})))
 	defer ts.Close()
@@ -33,35 +30,27 @@ func TestMiddleware_Handler(t *testing.T) {
 
 	assert.True(t, ok)
 	assert.Equal(t, "cid", cid)
-	generator.AssertNotCalled(t, "Generate")
 }
 
-func TestMiddleware_Handler_Generate(t *testing.T) {
-	generator := new(mocks.Generator)
-	generator.On("Generate").Return("cid")
-
+func TestMiddleware_Handler_Missing(t *testing.T) {
 	var cid string
 	var ok bool
-	middleware := correlationid.New(generator)
-	ts := httptest.NewServer(middleware.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	m := correlationid.New()
+	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cid, ok = context.CorrleationId(r.Context())
 	})))
 	defer ts.Close()
 
 	http.Get(ts.URL)
 
-	assert.True(t, ok)
-	assert.Equal(t, "cid", cid)
-	generator.AssertExpectations(t)
+	assert.False(t, ok)
 }
 
-func TestHeader(t *testing.T) {
-	generator := new(mocks.Generator)
-
+func TestHeaders(t *testing.T) {
 	var cid string
 	var ok bool
-	middleware := correlationid.New(generator, correlationid.Header("correlationid"))
-	ts := httptest.NewServer(middleware.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	m := correlationid.New(correlationid.Headers("Correlation-ID", "X-Correlation-ID"))
+	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cid, ok = context.CorrleationId(r.Context())
 	})))
 	defer ts.Close()
@@ -69,11 +58,10 @@ func TestHeader(t *testing.T) {
 	req, err := http.NewRequest("GET", ts.URL, nil)
 	require.NoError(t, err)
 
-	req.Header.Set("correlationid", "cid")
+	req.Header.Set("X-Correlation-ID", "cid")
 
 	http.DefaultClient.Do(req)
 
 	assert.True(t, ok)
 	assert.Equal(t, "cid", cid)
-	generator.AssertNotCalled(t, "Generate")
 }
