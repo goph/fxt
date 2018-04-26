@@ -13,7 +13,7 @@ import (
 )
 
 func TestMiddleware_Handler(t *testing.T) {
-	generator := new(MockGenerator)
+	generator := new(correlationIdGenerator)
 	generator.On("Generate").Return("cid")
 
 	var cid string
