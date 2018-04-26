@@ -10,6 +10,8 @@
 
 ## Installation
 
+Minimum Go version: 1.9
+
 Since this library uses [Glide](http://glide.sh/) I recommend using it in your
 project as well.
 

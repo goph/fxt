@@ -1,8 +1,10 @@
 package correlationid
 
 import (
+	"context"
+
+	"github.com/goph/fxt/internal/correlationid"
 	"github.com/grpc-ecosystem/go-grpc-middleware/util/metautils"
-	"golang.org/x/net/context"
 )
 
 const defaultMetadataHeader = "correlationid"
@@ -55,13 +57,13 @@ func (c *metadataCarrier) SetCorrelationID(ctx context.Context, correlationID st
 type metadataSourceCarrier struct {
 	*metadataCarrier
 
-	carrier Carrier
+	carrier correlationid.Carrier
 }
 
 // NewMetadataSourceCarrier returns a carrier which reads the correlation ID from metadata in case the provided carrier
 // does not have any configured. Setting the correlation ID on the other hand only sets the underlying carrier,
 // but does not set the metadata header.
-func NewMetadataSourceCarrier(carrier Carrier, opts ...MetadataCarrierOption) *metadataSourceCarrier {
+func NewMetadataSourceCarrier(carrier correlationid.Carrier, opts ...MetadataCarrierOption) *metadataSourceCarrier {
 	return &metadataSourceCarrier{
 		metadataCarrier: NewMetadataCarrier(opts...),
 		carrier:         carrier,
