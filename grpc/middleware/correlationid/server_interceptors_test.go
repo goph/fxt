@@ -7,6 +7,7 @@ import (
 
 	"github.com/goph/fxt/grpc/middleware/correlationid"
 	"github.com/goph/fxt/internal/correlationid/mocks"
+	_mocks "github.com/goph/fxt/grpc/middleware/correlationid/internal/mocks"
 	"github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"github.com/stretchr/testify/assert"
@@ -15,7 +16,7 @@ import (
 
 func TestUnaryServerInterceptor(t *testing.T) {
 	generator := new(mocks.Generator)
-	carrier := new(mocks.Carrier)
+	carrier := new(_mocks.Carrier)
 
 	ctx := context.Background()
 
@@ -48,7 +49,7 @@ func TestUnaryServerInterceptor(t *testing.T) {
 
 func TestUnaryServerInterceptor_Empty(t *testing.T) {
 	generator := new(mocks.Generator)
-	carrier := new(mocks.Carrier)
+	carrier := new(_mocks.Carrier)
 
 	generator.On("Generate").Return("1234")
 

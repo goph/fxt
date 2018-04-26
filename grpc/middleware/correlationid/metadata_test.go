@@ -6,7 +6,7 @@ import (
 	"context"
 
 	"github.com/goph/fxt/grpc/middleware/correlationid"
-	"github.com/goph/fxt/internal/correlationid/mocks"
+	"github.com/goph/fxt/grpc/middleware/correlationid/internal/mocks"
 	"github.com/grpc-ecosystem/go-grpc-middleware/util/metautils"
 	"github.com/stretchr/testify/assert"
 )
