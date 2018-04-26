@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- context: New package for basic context keys
+
 ### Changed
 
 - Move random string generation to internal package for reusability
