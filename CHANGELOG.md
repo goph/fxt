@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [0.23.0] - 2018-04-29
+
 ### Added
 
 - http: opentracing correlation ID middleware
@@ -358,7 +361,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Bootstrap options
 
 
-[Unreleased]: https://github.com/goph/fxt/compare/v0.22.0...HEAD
+[Unreleased]: https://github.com/goph/fxt/compare/v0.23.0...HEAD
+[0.23.0]: https://github.com/goph/fxt/compare/v0.22.0...v0.23.0
 [0.22.0]: https://github.com/goph/fxt/compare/v0.21.0...v0.22.0
 [0.21.0]: https://github.com/goph/fxt/compare/v0.20.0...v0.21.0
 [0.20.0]: https://github.com/goph/fxt/compare/v0.19.1...v0.20.0
