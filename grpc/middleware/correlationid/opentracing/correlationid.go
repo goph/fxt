@@ -1,6 +1,6 @@
 package otcorrelationid
 
-import "github.com/goph/fxt/http/middleware/correlationid"
+import "github.com/goph/fxt/grpc/middleware/correlationid"
 
 // NewOption returns correlation ID options configuring opentracing.
 func NewOption(options ...Option) correlationid.Option {

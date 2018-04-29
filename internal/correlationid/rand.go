@@ -12,7 +12,7 @@ type randGenerator struct {
 }
 
 // NewRandGenerator returns a unique ID generator of the given length.
-func NewRandGenerator(length int) Generator {
+func NewRandGenerator(length int) *randGenerator {
 	return &randGenerator{
 		length: length,
 		r:      rand.NewStringRand(rand.NewLockedSource(time.Now().UnixNano())),

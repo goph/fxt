@@ -3,84 +3,33 @@ package correlationid
 import (
 	"context"
 
-	"github.com/goph/fxt/grpc/middleware/correlationid/internal"
 	"github.com/grpc-ecosystem/go-grpc-middleware/util/metautils"
 )
 
-const defaultMetadataHeader = "correlationid"
+type metadataSource struct {
+	headers []string
+}
 
-type MetadataCarrierOption func(*metadataCarrier)
-
-// WithHeader customizes the metadata header for the correlation ID.
-func WithHeader(header string) MetadataCarrierOption {
-	return func(c *metadataCarrier) {
-		c.header = header
+// NewMetadataSource returns a correlation ID source which retrieves the correlation ID from gRPC metadata headers.
+func NewMetadataSource(headers ...string) *metadataSource {
+	return &metadataSource{
+		headers: headers,
 	}
 }
 
-type metadataCarrier struct {
-	header string
+// DefaultMetadataSource returns a correlation ID source which retrieves the correlation ID from gRPC metadata headers.
+func DefaultMetadataSource() *metadataSource {
+	return NewMetadataSource("correlation_id", "correlation-id", "correlationid")
 }
 
-// NewMetadataCarrier creates a carrier operating on gRPC metadata headers.
-func NewMetadataCarrier(opts ...MetadataCarrierOption) *metadataCarrier {
-	c := new(metadataCarrier)
-
-	for _, opt := range opts {
-		opt(c)
-	}
-
-	// Default metadata header
-	if c.header == "" {
-		c.header = defaultMetadataHeader
-	}
-
-	return c
-}
-
-func (c *metadataCarrier) GetCorrelationID(ctx context.Context) (string, bool) {
+func (s *metadataSource) ExtractCorrelationID(ctx context.Context) string {
 	md := metautils.ExtractIncoming(ctx)
 
-	correlationID := md.Get(c.header)
-
-	return correlationID, correlationID != ""
-}
-
-func (c *metadataCarrier) SetCorrelationID(ctx context.Context, correlationID string) context.Context {
-	md := metautils.ExtractIncoming(ctx).Clone()
-
-	md.Set(c.header, correlationID)
-
-	return md.ToIncoming(ctx)
-}
-
-type metadataSourceCarrier struct {
-	*metadataCarrier
-
-	carrier internal.Carrier
-}
-
-// NewMetadataSourceCarrier returns a carrier which reads the correlation ID from metadata in case the provided carrier
-// does not have any configured. Setting the correlation ID on the other hand only sets the underlying carrier,
-// but does not set the metadata header.
-func NewMetadataSourceCarrier(carrier internal.Carrier, opts ...MetadataCarrierOption) *metadataSourceCarrier {
-	return &metadataSourceCarrier{
-		metadataCarrier: NewMetadataCarrier(opts...),
-		carrier:         carrier,
-	}
-}
-
-func (c *metadataSourceCarrier) GetCorrelationID(ctx context.Context) (string, bool) {
-	correlationID, ok := c.carrier.GetCorrelationID(ctx)
-	if !ok {
-		correlationID, _ := c.metadataCarrier.GetCorrelationID(ctx)
-
-		return correlationID, false
+	for _, header := range s.headers { // Check headers (if any)
+		if cid := md.Get(header); cid != "" {
+			return cid
+		}
 	}
 
-	return correlationID, true
-}
-
-func (c *metadataSourceCarrier) SetCorrelationID(ctx context.Context, correlationID string) context.Context {
-	return c.carrier.SetCorrelationID(ctx, correlationID)
+	return ""
 }
