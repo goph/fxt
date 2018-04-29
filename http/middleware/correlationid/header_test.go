@@ -21,3 +21,16 @@ func TestHeaderSource_ExtractCorrelationID(t *testing.T) {
 
 	assert.Equal(t, "cid", cid)
 }
+
+func TestDefaultHeaderSource(t *testing.T) {
+	source := correlationid.DefaultHeaderSource()
+
+	req, err := http.NewRequest("", "", nil)
+	require.NoError(t, err)
+
+	req.Header.Set("X-Correlation-ID", "cid")
+
+	cid := source.ExtractCorrelationID(req)
+
+	assert.Equal(t, "cid", cid)
+}
