@@ -4,56 +4,54 @@ import (
 	"net/http"
 
 	"github.com/goph/fxt/context"
-	"github.com/goph/fxt/internal/correlationid"
 )
-
-const (
-	defaultHeader = "Correlation-ID"
-)
-
-// Option sets an option in the middleware.
-type Option func(*middleware)
-
-// Header sets the header in the middleware.
-func Header(header string) Option {
-	return func(m *middleware) {
-		m.header = header
-	}
-}
 
 type middleware struct {
-	generator correlationid.Generator
-
-	header string
+	sources []correlationIdSource
+	stores  []correlationIdStore
 }
 
-// New returns a new middleware.
-func New(generator correlationid.Generator, options ...Option) *middleware {
-	m := &middleware{
-		generator: generator,
-	}
+// New returns a new correlation ID middleware.
+func New(options ...Option) *middleware {
+	m := new(middleware)
 
 	for _, o := range options {
-		o(m)
-	}
-
-	// Default header
-	if m.header == "" {
-		m.header = defaultHeader
+		o.apply(m)
 	}
 
 	return m
 }
 
+// Retrieves a correlation ID from various sources:
+//		- if it is already in the context do not overwrite it, but write it in opentracing (if available)
 func (m *middleware) Handler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
-		cid := r.Header.Get(m.header)
-		if cid == "" {
-			cid = m.generator.Generate()
+		ctx := r.Context()
+		cid, ok := context.CorrleationId(ctx)
+		if ok { // Do not overwrite existing correlation ID
+			for _, store := range m.stores {
+				store.StoreCorrelationID(r, cid)
+			}
+
+			next.ServeHTTP(rw, r)
+			return
 		}
 
-		ctx := context.WithCorrelationId(r.Context(), cid)
-		r = r.WithContext(ctx)
+		for _, source := range m.sources {
+			cid = source.ExtractCorrelationID(r)
+			if cid != "" {
+				break
+			}
+		}
+
+		if cid != "" { // A correlation ID was found
+			for _, store := range m.stores {
+				store.StoreCorrelationID(r, cid)
+			}
+
+			ctx = context.WithCorrelationId(ctx, cid)
+			r = r.WithContext(ctx)
+		}
 
 		next.ServeHTTP(rw, r)
 	})

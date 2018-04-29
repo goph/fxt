@@ -9,6 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- http: opentracing correlation ID middleware
+
+### Changed
+
+- http: rewritten correlation ID middleware
+- grpc: rewritten correlation ID middleware
+
 
 ## [0.22.0] - 2018-04-26
 

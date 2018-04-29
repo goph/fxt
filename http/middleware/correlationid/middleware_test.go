@@ -1,6 +1,7 @@
 package correlationid_test
 
 import (
+	"fmt"
 	"testing"
 
 	"net/http"
@@ -8,42 +9,37 @@ import (
 
 	"github.com/goph/fxt/context"
 	"github.com/goph/fxt/http/middleware/correlationid"
-	"github.com/goph/fxt/internal/correlationid/mocks"
+	"github.com/goph/fxt/http/middleware/correlationid/opentracing"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
+	"github.com/stretchr/testify/mock"
 )
 
 func TestMiddleware_Handler(t *testing.T) {
-	generator := new(mocks.Generator)
-
 	var cid string
 	var ok bool
-	middleware := correlationid.New(generator)
-	ts := httptest.NewServer(middleware.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	m := correlationid.New()
+	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cid, ok = context.CorrleationId(r.Context())
 	})))
 	defer ts.Close()
 
-	req, err := http.NewRequest("GET", ts.URL, nil)
-	require.NoError(t, err)
+	http.Get(ts.URL)
 
-	req.Header.Set("Correlation-ID", "cid")
-
-	http.DefaultClient.Do(req)
-
-	assert.True(t, ok)
-	assert.Equal(t, "cid", cid)
-	generator.AssertNotCalled(t, "Generate")
+	assert.False(t, ok)
 }
 
-func TestMiddleware_Handler_Generate(t *testing.T) {
-	generator := new(mocks.Generator)
-	generator.On("Generate").Return("cid")
-
+func TestMiddleware_Handler_Source(t *testing.T) {
 	var cid string
 	var ok bool
-	middleware := correlationid.New(generator)
-	ts := httptest.NewServer(middleware.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	s1 := new(correlationIdSource)
+	s1.On("ExtractCorrelationID", mock.Anything).Return("")
+	s2 := new(correlationIdSource)
+	s2.On("ExtractCorrelationID", mock.Anything).Return("cid")
+
+	m := correlationid.New(correlationid.Source(s1, s2))
+	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cid, ok = context.CorrleationId(r.Context())
 	})))
 	defer ts.Close()
@@ -52,28 +48,69 @@ func TestMiddleware_Handler_Generate(t *testing.T) {
 
 	assert.True(t, ok)
 	assert.Equal(t, "cid", cid)
-	generator.AssertExpectations(t)
+	mock.AssertExpectationsForObjects(t, s1, s2)
 }
 
-func TestHeader(t *testing.T) {
-	generator := new(mocks.Generator)
-
+func TestMiddleware_Handler_WithSource(t *testing.T) {
 	var cid string
 	var ok bool
-	middleware := correlationid.New(generator, correlationid.Header("correlationid"))
-	ts := httptest.NewServer(middleware.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+
+	s1 := new(correlationIdSource)
+	s1.On("ExtractCorrelationID", mock.Anything).Return("")
+	s2 := new(correlationIdSource)
+	s2.On("ExtractCorrelationID", mock.Anything).Return("cid")
+
+	m := correlationid.New(correlationid.Source(s1), correlationid.WithSource(s2))
+	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		cid, ok = context.CorrleationId(r.Context())
 	})))
 	defer ts.Close()
 
-	req, err := http.NewRequest("GET", ts.URL, nil)
-	require.NoError(t, err)
-
-	req.Header.Set("correlationid", "cid")
-
-	http.DefaultClient.Do(req)
+	http.Get(ts.URL)
 
 	assert.True(t, ok)
 	assert.Equal(t, "cid", cid)
-	generator.AssertNotCalled(t, "Generate")
+	mock.AssertExpectationsForObjects(t, s1, s2)
+}
+
+func TestMiddleware_Handler_Store(t *testing.T) {
+	s1 := new(correlationIdSource)
+	s1.On("ExtractCorrelationID", mock.Anything).Return("cid")
+
+	st1 := new(correlationIdStore)
+	st1.On("StoreCorrelationID", mock.Anything, "cid")
+
+	m := correlationid.New(correlationid.Source(s1), correlationid.Store(st1))
+	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// noop
+	})))
+	defer ts.Close()
+
+	http.Get(ts.URL)
+
+	mock.AssertExpectationsForObjects(t, s1, st1)
+}
+
+func ExampleCorrelationID() {
+	m := correlationid.New(
+		otcorrelationid.NewOption(), // Configure Opentracing
+		correlationid.WithSource(
+			correlationid.NewHeaderSource("Correlation-ID"), // Find correlation ID in headers
+			correlationid.DefaultGeneratorSource(),          // Generate a new one if none is found
+		),
+	)
+	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		cid, ok := context.CorrleationId(r.Context())
+		if ok {
+			fmt.Println(cid)
+		}
+	})))
+	defer ts.Close()
+
+	req, _ := http.NewRequest("GET", ts.URL, nil)
+	req.Header.Set("Correlation-ID", "cid")
+
+	http.DefaultClient.Do(req)
+
+	// Output: cid
 }

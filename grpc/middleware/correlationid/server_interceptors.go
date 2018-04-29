@@ -3,19 +3,19 @@ package correlationid
 import (
 	"context"
 
-	"github.com/goph/fxt/grpc/middleware/correlationid/internal"
-	"github.com/goph/fxt/internal/correlationid"
+	fxcontext "github.com/goph/fxt/context"
 	"github.com/grpc-ecosystem/go-grpc-middleware"
-	"github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"google.golang.org/grpc"
 )
 
 const TagCorrelationID = "correlationid"
 
 // UnaryServerInterceptor returns a new unary server interceptor for propagating correlation ID.
-func UnaryServerInterceptor(generator correlationid.Generator, carrier internal.Carrier) grpc.UnaryServerInterceptor {
+func UnaryServerInterceptor(opts ...Option) grpc.UnaryServerInterceptor {
+	o := newOptions(opts...)
+
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
-		ctx = serverCorrelationID(generator, carrier, ctx)
+		ctx = serverCorrelationID(o, ctx)
 
 		resp, err := handler(ctx, req)
 
@@ -24,9 +24,11 @@ func UnaryServerInterceptor(generator correlationid.Generator, carrier internal.
 }
 
 // StreamServerInterceptor returns a new streaming server interceptor for propagating correlation ID.
-func StreamServerInterceptor(generator correlationid.Generator, carrier internal.Carrier) grpc.StreamServerInterceptor {
+func StreamServerInterceptor(opts ...Option) grpc.StreamServerInterceptor {
+	o := newOptions(opts...)
+
 	return func(srv interface{}, stream grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
-		ctx := serverCorrelationID(generator, carrier, stream.Context())
+		ctx := serverCorrelationID(o, stream.Context())
 
 		wrappedStream := grpc_middleware.WrapServerStream(stream)
 		wrappedStream.WrappedContext = ctx
@@ -37,19 +39,30 @@ func StreamServerInterceptor(generator correlationid.Generator, carrier internal
 	}
 }
 
-func serverCorrelationID(generator correlationid.Generator, carrier internal.Carrier, ctx context.Context) context.Context {
-	correlationID, ok := carrier.GetCorrelationID(ctx)
-	if !ok {
-		if correlationID == "" {
-			correlationID = generator.Generate()
+func serverCorrelationID(opts *options, ctx context.Context) context.Context {
+	cid, ok := fxcontext.CorrleationId(ctx)
+	if ok { // Do not overwrite existing correlation ID
+		for _, store := range opts.stores {
+			store.StoreCorrelationID(ctx, cid)
 		}
 
-		ctx = carrier.SetCorrelationID(ctx, correlationID)
+		return ctx
 	}
 
-	// Use tags as the source of correlation ID in handlers.
-	tags := grpc_ctxtags.Extract(ctx)
-	tags.Set(TagCorrelationID, correlationID)
+	for _, source := range opts.sources {
+		cid = source.ExtractCorrelationID(ctx)
+		if cid != "" {
+			break
+		}
+	}
+
+	if cid != "" { // A correlation ID was found
+		for _, store := range opts.stores {
+			store.StoreCorrelationID(ctx, cid)
+		}
+
+		ctx = fxcontext.WithCorrelationId(ctx, cid)
+	}
 
 	return ctx
 }
