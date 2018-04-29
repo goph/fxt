@@ -5,26 +5,55 @@ type Option interface {
 	apply(*middleware)
 }
 
-type optionFunc func(*middleware)
+// Options is a set of middleware options together.
+type Options []Option
 
-func (f optionFunc) apply(m *middleware) {
-	f(m)
+func (o Options) apply(m *middleware) {
+	for _, op := range o {
+		op.apply(m)
+	}
 }
 
-// Headers sets the headers to be checked in the middleware.
-func Headers(h ...string) Option {
-	return headersOption(h)
+// Source sets a set of correlation ID sources in the middleware.
+func Source(s ...correlationIdSource) Option {
+	return sourceOption(s)
 }
 
-type headersOption []string
+type sourceOption []correlationIdSource
 
-func (o headersOption) apply(m *middleware) {
-	m.headers = o
+func (o sourceOption) apply(m *middleware) {
+	m.sources = o
 }
 
-// Generator sets a generator instance in the middleware.
-func Generator(g correlationIdGenerator) Option {
-	return optionFunc(func(m *middleware) {
-		m.generator = g
-	})
+// WithSource appends a set of correlation ID sources in the middleware.
+func WithSource(s ...correlationIdSource) Option {
+	return withSourceOption(s)
+}
+
+type withSourceOption []correlationIdSource
+
+func (o withSourceOption) apply(m *middleware) {
+	m.sources = append(m.sources, o...)
+}
+
+// Store sets a set of correlation ID stores in the middleware.
+func Store(s ...correlationIdStore) Option {
+	return storeOption(s)
+}
+
+type storeOption []correlationIdStore
+
+func (o storeOption) apply(m *middleware) {
+	m.stores = o
+}
+
+// WithStore appends a set of correlation ID stores in the middleware.
+func WithStore(s ...correlationIdStore) Option {
+	return withStoreOption(s)
+}
+
+type withStoreOption []correlationIdStore
+
+func (o withStoreOption) apply(m *middleware) {
+	m.stores = append(m.stores, o...)
 }
