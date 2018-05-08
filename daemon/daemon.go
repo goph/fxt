@@ -1,4 +1,4 @@
-package daemon
+package fxdaemon
 
 // Daemon is a long-running process in the background.
 type Daemon interface {
