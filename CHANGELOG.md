@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Moved gorilla tracing to a separate package
 - Renamed `context` package to `fxcontext`
 - Renamed `daemon` package to `fxdaemon`
+- Renamed `database/sql` package to `(fx)database/fxsql`
 
 
 ## [0.23.0] - 2018-04-29
