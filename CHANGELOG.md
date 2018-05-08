@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Moved gorilla tracing to a separate package
+
 
 ## [0.23.0] - 2018-04-29
 
