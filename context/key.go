@@ -1,4 +1,4 @@
-package context
+package fxcontext
 
 // Following the pattern seen on https://medium.com/@matryer/context-keys-in-go-5312346a868d
 

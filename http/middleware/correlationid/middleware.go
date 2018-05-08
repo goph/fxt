@@ -27,7 +27,7 @@ func New(options ...Option) *middleware {
 func (m *middleware) Handler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(rw http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
-		cid, ok := context.CorrleationId(ctx)
+		cid, ok := fxcontext.CorrleationId(ctx)
 		if ok { // Do not overwrite existing correlation ID
 			for _, store := range m.stores {
 				store.StoreCorrelationID(r, cid)
@@ -49,7 +49,7 @@ func (m *middleware) Handler(next http.Handler) http.Handler {
 				store.StoreCorrelationID(r, cid)
 			}
 
-			ctx = context.WithCorrelationId(ctx, cid)
+			ctx = fxcontext.WithCorrelationId(ctx, cid)
 			r = r.WithContext(ctx)
 		}
 
