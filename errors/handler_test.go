@@ -1,4 +1,4 @@
-package errors_test
+package fxerrors_test
 
 import (
 	"testing"
@@ -22,7 +22,7 @@ func TestNewHandler(t *testing.T) {
 
 		require.NoError(t, err)
 
-		handler := errors.NewHandler(errors.HandlerParams{
+		handler := fxerrors.NewHandler(fxerrors.HandlerParams{
 			Logger: logger,
 		})
 

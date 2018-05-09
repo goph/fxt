@@ -1,4 +1,4 @@
-package airbrake
+package fxairbrake
 
 import (
 	"github.com/airbrake/gobrake"
