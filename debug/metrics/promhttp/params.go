@@ -1,4 +1,4 @@
-package prometheus
+package fxpromhttp
 
 import (
 	"github.com/goph/fxt/debug"
@@ -11,7 +11,7 @@ import (
 type HandlerParams struct {
 	dig.In
 
-	Handler  debug.Handler
+	Handler  fxdebug.Handler
 	Gatherer prometheus.Gatherer
 
 	Logger promhttp.Logger      `optional:"true"`

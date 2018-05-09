@@ -1,4 +1,4 @@
-package debug
+package fxdebug
 
 import (
 	"github.com/go-kit/kit/log"

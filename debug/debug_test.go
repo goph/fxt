@@ -1,4 +1,4 @@
-package debug_test
+package fxdebug_test
 
 import (
 	"github.com/goph/fxt"
@@ -14,11 +14,11 @@ func Example() {
 		fx.NopLogger,
 		fxt.Bootstrap,
 		fx.Provide(
-			func() *debug.Config {
-				return debug.NewConfig(":8080")
+			func() *fxdebug.Config {
+				return fxdebug.NewConfig(":8080")
 			},
-			debug.NewHealthCollector,
-			debug.NewServer,
+			fxdebug.NewHealthCollector,
+			fxdebug.NewServer,
 		),
 		fx.Invoke(func(collector healthz.Collector) {
 			collector.RegisterChecker(healthz.ReadinessCheck, status)
