@@ -15,10 +15,10 @@ import (
 func TestNewHandler(t *testing.T) {
 	t.Run("Logger", func(t *testing.T) {
 		buf := new(bytes.Buffer)
-		config := log.NewConfig()
+		config := fxlog.NewConfig()
 		config.Output = buf
-		config.Format = log.LogfmtFormat
-		logger, err := log.NewLogger(config)
+		config.Format = fxlog.LogfmtFormat
+		logger, err := fxlog.NewLogger(config)
 
 		require.NoError(t, err)
 

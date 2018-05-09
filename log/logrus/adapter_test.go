@@ -1,4 +1,4 @@
-package logrus_test
+package fxlogrus_test
 
 import (
 	"testing"
