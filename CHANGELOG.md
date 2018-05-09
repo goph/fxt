@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Renamed `database/sql` package to `fxsql`
 - Renamed `debug` package to `fxdebug`
 - Renamed `debug/metrics/prometheus` package to `fxpromhttp`
+- Renamed `dev` package to `fxdev`
 
 
 ## [0.23.0] - 2018-04-29

@@ -1,4 +1,4 @@
-package dev_test
+package fxdev_test
 
 import (
 	"os"
@@ -13,7 +13,7 @@ import (
 func TestGetCurrentDir(t *testing.T) {
 	gopaths := strings.Split(os.Getenv("GOPATH"), ":")
 
-	expected, err := dev.GetCurrentDir()
+	expected, err := fxdev.GetCurrentDir()
 	require.NoError(t, err)
 
 	for _, gopath := range gopaths {
