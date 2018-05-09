@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Renamed `http/gorilla/opentracing` package to `otmux` and moved to `http/gorilla/mux/opentracing`
 - Renamed `log` package to `fxlog`
 - Renamed `log/logrus` package to `fxlogrus`
+- Renamed `prometheus` package to `fxprometheus`
 
 
 ## [0.23.0] - 2018-04-29
