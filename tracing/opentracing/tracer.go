@@ -1,4 +1,4 @@
-package tracing
+package fxopentracing
 
 import "github.com/opentracing/opentracing-go"
 

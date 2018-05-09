@@ -27,6 +27,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Renamed `log` package to `fxlog`
 - Renamed `log/logrus` package to `fxlogrus`
 - Renamed `prometheus` package to `fxprometheus`
+- Moved `tracing` package to `tracing/opentracing` under the name `fxopentracing`
+- Renamed `tracing/jaeger` package to `fxjaeger`
+- Renamed `tracing/jaeger/metrics/prometheus` package to `jaegerprometheus`
 
 
 ## [0.23.0] - 2018-04-29

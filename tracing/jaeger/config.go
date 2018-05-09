@@ -1,4 +1,4 @@
-package jaeger
+package fxjaeger
 
 import (
 	jaegercfg "github.com/uber/jaeger-client-go/config"
