@@ -1,4 +1,4 @@
-package http
+package fxhttp
 
 // Config holds a list of options used during the http server construction.
 type Config struct {

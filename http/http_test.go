@@ -1,4 +1,4 @@
-package http_test
+package fxhttp_test
 
 import (
 	"net/http"

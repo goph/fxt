@@ -1,4 +1,4 @@
-package gorilla
+package fxmux
 
 import (
 	"github.com/gorilla/mux"

@@ -1,4 +1,4 @@
-package gorilla
+package fxmux
 
 import (
 	"net/http"

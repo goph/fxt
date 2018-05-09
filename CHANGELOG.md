@@ -21,6 +21,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Renamed `errors` package to `fxerrors`
 - Renamed `errors/airbrake` package to `fxairbrake`
 - Renamed `grpc` package to `fxgrpc`
+- Renamed `http` package to `fxhttp`
+- Renamed `http/gorilla` package to `fxmux` and moved to `http/gorilla/mux`
+- Renamed `http/gorilla/opentracing` package to `otmux` and moved to `http/gorilla/mux/opentracing`
 
 
 ## [0.23.0] - 2018-04-29
