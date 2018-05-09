@@ -1,4 +1,4 @@
-package grpc
+package fxgrpc
 
 import "google.golang.org/grpc"
 

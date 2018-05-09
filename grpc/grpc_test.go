@@ -1,4 +1,4 @@
-package grpc_test
+package fxgrpc_test
 
 import (
 	"github.com/goph/fxt"

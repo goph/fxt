@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Renamed `dev` package to `fxdev`
 - Renamed `errors` package to `fxerrors`
 - Renamed `errors/airbrake` package to `fxairbrake`
+- Renamed `grpc` package to `fxgrpc`
 
 
 ## [0.23.0] - 2018-04-29
