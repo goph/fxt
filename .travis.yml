@@ -25,4 +25,4 @@ install: glide install
 
 script:
     - go test $(go list ./... | grep -v /vendor/)
-    - go test -tags 'acceptance integration unit' ./test/is/
+    - go test -tags 'acceptance integration unit' ./testing/is/

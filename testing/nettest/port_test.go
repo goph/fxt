@@ -5,7 +5,7 @@ import (
 	"net"
 	"testing"
 
-	"github.com/goph/fxt/test/nettest"
+	"github.com/goph/fxt/testing/nettest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

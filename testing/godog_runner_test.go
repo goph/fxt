@@ -1,13 +1,14 @@
-package test_test
+package fxtesting_test
 
 import (
+	"testing"
+
 	"bytes"
 	"encoding/json"
 	"strings"
-	"testing"
 
 	"github.com/DATA-DOG/godog"
-	"github.com/goph/fxt/test"
+	"github.com/goph/fxt/testing"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -15,7 +16,7 @@ import (
 func TestGodogRunner_Run(t *testing.T) {
 	buf := new(bytes.Buffer)
 
-	runner := test.NewGodogRunner(test.WithGodogOptions(godog.Options{
+	runner := fxtesting.NewGodogRunner(fxtesting.WithGodogOptions(godog.Options{
 		Output: buf,
 	}))
 
@@ -24,7 +25,7 @@ func TestGodogRunner_Run(t *testing.T) {
 }
 
 func TestGodogRunner_Run_Nil(t *testing.T) {
-	var runner *test.GodogRunner
+	var runner *fxtesting.GodogRunner
 
 	exitCode := runner.Run()
 	require.Equal(t, 3, exitCode)
@@ -33,12 +34,12 @@ func TestGodogRunner_Run_Nil(t *testing.T) {
 func TestWithSuiteName(t *testing.T) {
 	buf := new(bytes.Buffer)
 
-	runner := test.NewGodogRunner(
-		test.WithGodogOptions(godog.Options{
+	runner := fxtesting.NewGodogRunner(
+		fxtesting.WithGodogOptions(godog.Options{
 			Output: buf,
 			Format: "events",
 		}),
-		test.WithSuiteName("suite_name"),
+		fxtesting.WithSuiteName("suite_name"),
 	)
 
 	exitCode := runner.Run()
@@ -61,7 +62,7 @@ func TestWithSuiteName(t *testing.T) {
 func TestGodogRunner_RegisterFeatureContext(t *testing.T) {
 	buf := new(bytes.Buffer)
 
-	runner := test.NewGodogRunner(test.WithGodogOptions(godog.Options{
+	runner := fxtesting.NewGodogRunner(fxtesting.WithGodogOptions(godog.Options{
 		Output: buf,
 	}))
 
@@ -79,7 +80,7 @@ func TestGodogRunner_RegisterFeatureContext(t *testing.T) {
 func TestGodogRunner_RegisterFeaturePath(t *testing.T) {
 	buf := new(bytes.Buffer)
 
-	runner := test.NewGodogRunner(test.WithGodogOptions(godog.Options{
+	runner := fxtesting.NewGodogRunner(fxtesting.WithGodogOptions(godog.Options{
 		Output: buf,
 	}))
 
