@@ -19,6 +19,18 @@ project as well.
 $ glide get github.com/goph/fxt
 ```
 
+## Usage
+
+As you will see, the top level (and some deeper level) packages have the `fx` prefix in their package name,
+but not in their directory name. The reason for the prefix is simple: avoiding name collisions.
+This is however not really idiomatic Go: although the package name can be different from the directory name,
+it is recommended that they are the same for clarity. In this case the prefix is consistent though and I found it
+would probably be harder to read directory names, so I left the original versions there. Ideally an IDE
+should be able to handle this.
+
+I'm going to continue using and testing it and might change the directory names as well if it turns out
+to be too confusing. 
+
 
 ## License
 
