@@ -1,4 +1,4 @@
-package sql_test
+package fxsql_test
 
 import (
 	"testing"
@@ -8,7 +8,7 @@ import (
 )
 
 func TestAppConfig_Dsn(t *testing.T) {
-	config := sql.AppConfig{
+	config := fxsql.AppConfig{
 		Host: "host",
 		Port: 3306,
 		User: "root",

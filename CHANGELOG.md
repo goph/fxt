@@ -12,6 +12,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - Moved gorilla tracing to a separate package
+- Renamed `context` package to `fxcontext`
+- Renamed `daemon` package to `fxdaemon`
+- Renamed `database/sql` package to `fxsql`
+- Renamed `debug` package to `fxdebug`
+- Renamed `debug/metrics/prometheus` package to `fxpromhttp`
+- Renamed `dev` package to `fxdev`
+- Renamed `errors` package to `fxerrors`
+- Renamed `errors/airbrake` package to `fxairbrake`
+- Renamed `grpc` package to `fxgrpc`
+- Renamed `http` package to `fxhttp`
+- Renamed `http/gorilla` package to `fxmux` and moved to `http/gorilla/mux`
+- Renamed `http/gorilla/opentracing` package to `otmux` and moved to `http/gorilla/mux/opentracing`
+- Renamed `log` package to `fxlog`
+- Renamed `log/logrus` package to `fxlogrus`
+- Renamed `prometheus` package to `fxprometheus`
+- Renamed `test` package to `fxtesting`
+- Moved `tracing` package to `tracing/opentracing` under the name `fxopentracing`
+- Renamed `tracing/jaeger` package to `fxjaeger`
+- Renamed `tracing/jaeger/metrics/prometheus` package to `jaegerprometheus`
 
 
 ## [0.23.0] - 2018-04-29

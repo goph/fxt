@@ -1,4 +1,4 @@
-package log_test
+package fxlog_test
 
 import (
 	"testing"
@@ -15,11 +15,11 @@ import (
 func TestNewLogger(t *testing.T) {
 	buf := new(bytes.Buffer)
 
-	setUp := func(config *log.Config) kitlog.Logger {
+	setUp := func(config *fxlog.Config) kitlog.Logger {
 		buf.Reset()
 		config.Output = buf
 
-		logger, err := log.NewLogger(config)
+		logger, err := fxlog.NewLogger(config)
 
 		require.NoError(t, err)
 
@@ -27,7 +27,7 @@ func TestNewLogger(t *testing.T) {
 	}
 
 	t.Run("Defaults", func(t *testing.T) {
-		config := log.NewConfig()
+		config := fxlog.NewConfig()
 
 		logger := setUp(config)
 
@@ -37,8 +37,8 @@ func TestNewLogger(t *testing.T) {
 	})
 
 	t.Run("LogfmtFormat", func(t *testing.T) {
-		config := log.NewConfig()
-		config.Format = log.LogfmtFormat
+		config := fxlog.NewConfig()
+		config.Format = fxlog.LogfmtFormat
 
 		logger := setUp(config)
 
@@ -48,7 +48,7 @@ func TestNewLogger(t *testing.T) {
 	})
 
 	t.Run("FallbackLevel", func(t *testing.T) {
-		config := log.NewConfig()
+		config := fxlog.NewConfig()
 		config.FallbackLevel = level.WarnValue()
 
 		logger := setUp(config)
@@ -59,7 +59,7 @@ func TestNewLogger(t *testing.T) {
 	})
 
 	t.Run("Context", func(t *testing.T) {
-		config := log.NewConfig()
+		config := fxlog.NewConfig()
 		config.Context = []interface{}{"key", "value"}
 
 		logger := setUp(config)
@@ -71,7 +71,7 @@ func TestNewLogger(t *testing.T) {
 
 	t.Run("Debug", func(t *testing.T) {
 		t.Run("Off", func(t *testing.T) {
-			config := log.NewConfig()
+			config := fxlog.NewConfig()
 
 			logger := setUp(config)
 
@@ -81,7 +81,7 @@ func TestNewLogger(t *testing.T) {
 		})
 
 		t.Run("On", func(t *testing.T) {
-			config := log.NewConfig()
+			config := fxlog.NewConfig()
 			config.Debug = true
 
 			logger := setUp(config)

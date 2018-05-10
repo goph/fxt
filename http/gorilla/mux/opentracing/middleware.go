@@ -1,4 +1,4 @@
-package opentracing
+package otmux
 
 import (
 	"net/http"

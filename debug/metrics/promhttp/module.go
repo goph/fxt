@@ -1,4 +1,4 @@
-package prometheus
+package fxpromhttp
 
 import "go.uber.org/fx"
 

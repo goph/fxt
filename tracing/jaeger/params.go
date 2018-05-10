@@ -1,4 +1,4 @@
-package jaeger
+package fxjaeger
 
 import (
 	"github.com/go-kit/kit/log"

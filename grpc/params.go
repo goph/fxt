@@ -1,4 +1,4 @@
-package grpc
+package fxgrpc
 
 import (
 	"github.com/go-kit/kit/log"

@@ -1,4 +1,4 @@
-package logrus
+package fxlogrus
 
 import (
 	"github.com/go-kit/kit/log"

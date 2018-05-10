@@ -1,9 +1,9 @@
-package test_test
+package fxtesting_test
 
 import (
 	"testing"
 
-	"github.com/goph/fxt/test"
+	"github.com/goph/fxt/testing"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
@@ -24,15 +24,15 @@ type RunnerFactoryMock struct {
 	mock.Mock
 }
 
-func (_m *RunnerFactoryMock) CreateRunner() (test.Runner, error) {
+func (_m *RunnerFactoryMock) CreateRunner() (fxtesting.Runner, error) {
 	ret := _m.Called()
 
-	var r0 test.Runner
-	if rf, ok := ret.Get(0).(func() test.Runner); ok {
+	var r0 fxtesting.Runner
+	if rf, ok := ret.Get(0).(func() fxtesting.Runner); ok {
 		r0 = rf()
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(test.Runner)
+			r0 = ret.Get(0).(fxtesting.Runner)
 		}
 	}
 
@@ -43,7 +43,7 @@ func TestRunners_Run(t *testing.T) {
 	r := new(RunnerMock)
 	r.On("Run").Return(0)
 
-	runner := test.Runners{r}
+	runner := fxtesting.Runners{r}
 
 	result := runner.Run()
 	assert.Equal(t, 0, result)
@@ -60,7 +60,7 @@ func TestRunners_Run_Result(t *testing.T) {
 	r3 := new(RunnerMock)
 	r3.On("Run").Return(2)
 
-	runner := test.Runners{r1, r2, r3}
+	runner := fxtesting.Runners{r1, r2, r3}
 
 	result := runner.Run()
 	assert.Equal(t, 2, result)
@@ -79,7 +79,7 @@ func TestAppendRunner(t *testing.T) {
 	r3 := new(RunnerMock)
 	r3.On("Run").Return(2)
 
-	runner := test.AppendRunner(r1, r2, r3)
+	runner := fxtesting.AppendRunner(r1, r2, r3)
 
 	result := runner.Run()
 	assert.Equal(t, 2, result)
@@ -98,8 +98,8 @@ func TestAppendRunner_Runners(t *testing.T) {
 	r3 := new(RunnerMock)
 	r3.On("Run").Return(2)
 
-	runners := test.Runners{r1}
-	runner := test.AppendRunner(runners, r2, r3)
+	runners := fxtesting.Runners{r1}
+	runner := fxtesting.AppendRunner(runners, r2, r3)
 
 	result := runner.Run()
 	assert.Equal(t, 2, result)
@@ -107,7 +107,7 @@ func TestAppendRunner_Runners(t *testing.T) {
 	r2.AssertExpectations(t)
 	r3.AssertExpectations(t)
 
-	runners, ok := runner.(test.Runners)
+	runners, ok := runner.(fxtesting.Runners)
 	require.True(t, ok)
 	assert.Equal(t, r1, runners[0])
 }
@@ -116,7 +116,7 @@ func TestAppendRunner_NothingToAppend(t *testing.T) {
 	r1 := new(RunnerMock)
 	r1.On("Run").Return(0)
 
-	runner := test.AppendRunner(r1)
+	runner := fxtesting.AppendRunner(r1)
 
 	result := runner.Run()
 	assert.Equal(t, 0, result)
@@ -137,7 +137,7 @@ func TestRunnerFactoryRegistry(t *testing.T) {
 	f2 := new(RunnerFactoryMock)
 	f2.On("CreateRunner").Return(r2, nil)
 
-	registry := test.RunnerFactoryRegistry{}
+	registry := fxtesting.RunnerFactoryRegistry{}
 
 	registry.Register(f1)
 	registry.Register(f2)
@@ -166,7 +166,7 @@ func TestRunnerFactoryRegistry_Error(t *testing.T) {
 
 	f3 := new(RunnerFactoryMock)
 
-	registry := test.RunnerFactoryRegistry{}
+	registry := fxtesting.RunnerFactoryRegistry{}
 
 	registry.Register(f1)
 	registry.Register(f2)
@@ -188,7 +188,7 @@ func TestRunnerFactoryFunc_CreateRunner(t *testing.T) {
 	f1 := new(RunnerFactoryMock)
 	f1.On("CreateRunner").Return(r1, nil)
 
-	factoryFunc := test.RunnerFactoryFunc(f1.CreateRunner)
+	factoryFunc := fxtesting.RunnerFactoryFunc(f1.CreateRunner)
 
 	runner, err := factoryFunc.CreateRunner()
 	require.NoError(t, err)

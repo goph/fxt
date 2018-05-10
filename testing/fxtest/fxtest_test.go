@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/goph/fxt"
-	"github.com/goph/fxt/test/fxtest"
+	"github.com/goph/fxt/testing/fxtest"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/fx"

@@ -1,4 +1,4 @@
-package log_test
+package fxlog_test
 
 import (
 	"io"
@@ -15,7 +15,7 @@ import (
 func TestWriterAdapter(t *testing.T) {
 	buf := &bytes.Buffer{}
 	logger := kitlog.NewLogfmtLogger(buf)
-	writer := log.NewWriterAdapter(logger)
+	writer := fxlog.NewWriterAdapter(logger)
 
 	buf.Reset()
 
@@ -26,5 +26,5 @@ func TestWriterAdapter(t *testing.T) {
 }
 
 func TestWriterAdapter_ImplementsWriter(t *testing.T) {
-	assert.Implements(t, (*io.Writer)(nil), new(log.WriterAdapter))
+	assert.Implements(t, (*io.Writer)(nil), new(fxlog.WriterAdapter))
 }

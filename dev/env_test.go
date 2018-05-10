@@ -1,4 +1,4 @@
-package dev_test
+package fxdev_test
 
 import (
 	"os"
@@ -10,7 +10,7 @@ import (
 )
 
 func TestLoadEnvFromFile(t *testing.T) {
-	err := dev.LoadEnvFromFile(".env")
+	err := fxdev.LoadEnvFromFile(".env")
 	require.NoError(t, err)
 	assert.Equal(t, "test_value", os.Getenv("TEST_VARIABLE"))
 }

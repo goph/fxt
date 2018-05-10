@@ -1,4 +1,4 @@
-package debug
+package fxdebug
 
 // Config holds a list of options used during the debug server construction.
 type Config struct {

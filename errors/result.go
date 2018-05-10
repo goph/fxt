@@ -1,4 +1,4 @@
-package errors
+package fxerrors
 
 import (
 	"github.com/goph/emperror"

@@ -1,4 +1,4 @@
-package debug
+package fxdebug
 
 import (
 	"github.com/goph/healthz"

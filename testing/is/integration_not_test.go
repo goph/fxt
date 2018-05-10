@@ -5,7 +5,7 @@ package is_test
 import (
 	"testing"
 
-	"github.com/goph/fxt/test/is"
+	"github.com/goph/fxt/testing/is"
 	"github.com/stretchr/testify/assert"
 )
 

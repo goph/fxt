@@ -1,4 +1,4 @@
-package sql
+package fxsql
 
 import (
 	"github.com/goph/fxt"

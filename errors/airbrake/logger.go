@@ -1,4 +1,4 @@
-package airbrake
+package fxairbrake
 
 import (
 	stdlog "log"

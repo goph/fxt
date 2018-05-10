@@ -1,4 +1,4 @@
-package grpc
+package fxgrpc
 
 import (
 	"context"
@@ -27,9 +27,9 @@ func NewServer(params ServerParams) (*grpc.Server, Err) {
 	// TODO: separate log levels
 	// TODO: only set logger once
 	grpclog.SetLoggerV2(grpclog.NewLoggerV2(
-		log.NewWriterAdapter(level.Info(logger)),
-		log.NewWriterAdapter(level.Warn(logger)),
-		log.NewWriterAdapter(level.Error(logger)),
+		fxlog.NewWriterAdapter(level.Info(logger)),
+		fxlog.NewWriterAdapter(level.Warn(logger)),
+		fxlog.NewWriterAdapter(level.Error(logger)),
 	))
 
 	if params.HealthCollector != nil {

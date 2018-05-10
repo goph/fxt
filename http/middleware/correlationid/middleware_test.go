@@ -20,7 +20,7 @@ func TestMiddleware_Handler(t *testing.T) {
 
 	m := correlationid.New()
 	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		cid, ok = context.CorrleationId(r.Context())
+		cid, ok = fxcontext.CorrleationId(r.Context())
 	})))
 	defer ts.Close()
 
@@ -40,7 +40,7 @@ func TestMiddleware_Handler_Source(t *testing.T) {
 
 	m := correlationid.New(correlationid.Source(s1, s2))
 	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		cid, ok = context.CorrleationId(r.Context())
+		cid, ok = fxcontext.CorrleationId(r.Context())
 	})))
 	defer ts.Close()
 
@@ -62,7 +62,7 @@ func TestMiddleware_Handler_WithSource(t *testing.T) {
 
 	m := correlationid.New(correlationid.Source(s1), correlationid.WithSource(s2))
 	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		cid, ok = context.CorrleationId(r.Context())
+		cid, ok = fxcontext.CorrleationId(r.Context())
 	})))
 	defer ts.Close()
 
@@ -100,7 +100,7 @@ func ExampleCorrelationID() {
 		),
 	)
 	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		cid, ok := context.CorrleationId(r.Context())
+		cid, ok := fxcontext.CorrleationId(r.Context())
 		if ok {
 			fmt.Println(cid)
 		}
