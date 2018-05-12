@@ -50,8 +50,6 @@ func NewServer(params ServerParams) (*grpc.Server, Err) {
 	server := grpc.NewServer(params.Config.Options...)
 
 	if params.Config.ReflectionEnabled {
-		level.Debug(logger).Log("msg", "grpc reflection service enabled")
-
 		reflection.Register(server)
 	}
 
@@ -64,6 +62,10 @@ func NewServer(params ServerParams) (*grpc.Server, Err) {
 				"addr", params.Config.Addr,
 				"network", params.Config.Network,
 			)
+
+			if params.Config.ReflectionEnabled {
+				level.Debug(logger).Log("msg", "grpc reflection service enabled")
+			}
 
 			lis, err := net.Listen(params.Config.Network, params.Config.Addr)
 			if err != nil {
