@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Default app modules for http and grpc
+- Default app runners for http and grpc
+
 ### Changed
 
 - Moved gorilla tracing to a separate package
