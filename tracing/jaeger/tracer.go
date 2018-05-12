@@ -14,10 +14,12 @@ import (
 type TracerParams struct {
 	dig.In
 
-	Config         *Config
+	Config *jaegercfg.Configuration
+
 	Logger         log.Logger      `optional:"true"`
 	MetricsFactory metrics.Factory `optional:"true"`
-	Lifecycle      fxt.Lifecycle
+
+	Lifecycle fxt.Lifecycle
 }
 
 // NewTracer returns a new jaeger tracer.
@@ -32,7 +34,7 @@ func NewTracer(params TracerParams) (opentracing.Tracer, error) {
 		jaegerOptions = append(jaegerOptions, jaegercfg.Metrics(params.MetricsFactory))
 	}
 
-	tracer, closer, err := params.Config.JaegerConfig.New(params.Config.ServiceName, jaegerOptions...)
+	tracer, closer, err := params.Config.NewTracer(jaegerOptions...)
 	if err != nil {
 		return nil, err
 	}

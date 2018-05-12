@@ -33,6 +33,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Renamed `tracing/jaeger/metrics/prometheus` package to `jaegerprometheus`
 - Moved `debug/metrics/prometheus` package to `metrics/prometheus/promhttp` as `fxpromhttp`
 - Moved param and result structs next to the constructor
+- Use new Jaeger config constructor instead of the deprecated one
+
+### Removed
+
+- Unused jaeger client config
 
 
 ## [0.23.0] - 2018-04-29
