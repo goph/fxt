@@ -15,12 +15,11 @@ import (
 )
 
 func TestMiddleware_Handler(t *testing.T) {
-	var cid string
 	var ok bool
 
 	m := correlationid.New()
 	ts := httptest.NewServer(m.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		cid, ok = fxcontext.CorrleationId(r.Context())
+		_, ok = fxcontext.CorrleationId(r.Context())
 	})))
 	defer ts.Close()
 
