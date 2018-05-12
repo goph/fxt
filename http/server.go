@@ -11,7 +11,19 @@ import (
 	"github.com/goph/fxt"
 	"github.com/goph/healthz"
 	"github.com/pkg/errors"
+	"go.uber.org/dig"
 )
+
+// ServerParams provides a set of dependencies for a http server constructor.
+type ServerParams struct {
+	dig.In
+
+	Config          *Config
+	Handler         http.Handler
+	Logger          log.Logger        `optional:"true"`
+	HealthCollector healthz.Collector `optional:"true"`
+	Lifecycle       fxt.Lifecycle
+}
 
 // NewServer creates a new http server.
 func NewServer(params ServerParams) Err {

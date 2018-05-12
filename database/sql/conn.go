@@ -8,6 +8,15 @@ import (
 	"go.uber.org/dig"
 )
 
+// ConnectionParams provides a set of dependencies for a database connection constructor.
+type ConnectionParams struct {
+	dig.In
+
+	Config          *Config
+	HealthCollector healthz.Collector `optional:"true"`
+	Lifecycle       fxt.Lifecycle
+}
+
 // NewConnection creates a new database connection and optionally registers a health check.
 // It also registers a closer in the application lifecycle.
 func NewConnection(params ConnectionParams) (*sql.DB, error) {
@@ -36,40 +45,4 @@ func NewConnection(params ConnectionParams) (*sql.DB, error) {
 	})
 
 	return db, err
-}
-
-// NewMasterSlaveConnection calls NewConnection twice with different input configurations.
-func NewMasterSlaveConnection(params MasterSlaveConnectionParams) (MasterSlaveConnectionResult, error) {
-	result := MasterSlaveConnectionResult{}
-
-	db, err := NewConnection(ConnectionParams{
-		Config:          params.MasterConfig,
-		HealthCollector: params.HealthCollector,
-		Lifecycle:       params.Lifecycle,
-	})
-	if err != nil {
-		return result, err
-	}
-	result.Master = db
-
-	db, err = NewConnection(ConnectionParams{
-		Config:          params.SlaveConfig,
-		HealthCollector: params.HealthCollector,
-		Lifecycle:       params.Lifecycle,
-	})
-	if err != nil {
-		return result, err
-	}
-	result.Slave = db
-
-	return result, err
-}
-
-// MakeMasterPrimaryConnection makes the master connection the primary one to be used as *sql.DB.
-func MakeMasterPrimaryConnection(result struct {
-	dig.In
-
-	Master *sql.DB `name:"master"`
-}) (*sql.DB) {
-	return result.Master
 }

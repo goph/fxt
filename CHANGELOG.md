@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Renamed `tracing/jaeger` package to `fxjaeger`
 - Renamed `tracing/jaeger/metrics/prometheus` package to `jaegerprometheus`
 - Moved `debug/metrics/prometheus` package to `metrics/prometheus/promhttp` as `fxpromhttp`
+- Moved param and result structs next to the constructor
 
 
 ## [0.23.0] - 2018-04-29

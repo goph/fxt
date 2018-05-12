@@ -12,8 +12,18 @@ import (
 	"github.com/go-kit/kit/log/level"
 	"github.com/goph/fxt"
 	"github.com/pkg/errors"
+	"go.uber.org/dig"
 	"golang.org/x/net/trace"
 )
+
+// ServerParams provides a set of dependencies for a debug server constructor.
+type ServerParams struct {
+	dig.In
+
+	Config    *Config
+	Logger    log.Logger `optional:"true"`
+	Lifecycle fxt.Lifecycle
+}
 
 // NewServer creates a new debug server.
 func NewServer(params ServerParams) (Handler, Err) {

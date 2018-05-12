@@ -1,8 +1,6 @@
 package fxprometheus
 
 import (
-	"os"
-
 	"github.com/prometheus/client_golang/prometheus"
 )
 
@@ -21,31 +19,4 @@ func NewWithGlobal() (prometheus.Registerer, prometheus.Gatherer) {
 	gatherer = prometheus.Gatherers{gatherer, prometheus.DefaultGatherer}
 
 	return registerer, gatherer
-}
-
-// RegisterDefaultCollectors registers default metric collectors in a prometheus registerer instance.
-func RegisterDefaultCollectors(registerer prometheus.Registerer) error {
-	err := registerer.Register(prometheus.NewProcessCollector(os.Getpid(), ""))
-	if err != nil {
-		return err
-	}
-
-	err = registerer.Register(prometheus.NewGoCollector())
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
-
-// RegisterCollectors registers collector instances in the registerer.
-func RegisterCollectors(params CollectorParams) error {
-	for _, collector := range params.Collectors {
-		err := params.Registerer.Register(collector)
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
 }

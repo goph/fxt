@@ -4,25 +4,36 @@ import (
 	"context"
 	"net"
 
-	kitlog "github.com/go-kit/kit/log"
+	"github.com/go-kit/kit/log"
 	"github.com/go-kit/kit/log/level"
 	"github.com/goph/fxt"
 	"github.com/goph/fxt/log"
 	"github.com/goph/healthz"
 	"github.com/pkg/errors"
+	"go.uber.org/dig"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/reflection"
 )
 
+// ServerParams provides a set of dependencies for a grpc server constructor.
+type ServerParams struct {
+	dig.In
+
+	Config          *Config
+	Logger          log.Logger        `optional:"true"`
+	HealthCollector healthz.Collector `optional:"true"`
+	Lifecycle       fxt.Lifecycle
+}
+
 // NewServer creates a new gRPC server.
 func NewServer(params ServerParams) (*grpc.Server, Err) {
 	logger := params.Logger
 	if logger == nil {
-		logger = kitlog.NewNopLogger()
+		logger = log.NewNopLogger()
 	}
 
-	logger = kitlog.With(logger, "server", "grpc")
+	logger = log.With(logger, "server", "grpc")
 
 	// TODO: separate log levels
 	// TODO: only set logger once

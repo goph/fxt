@@ -6,7 +6,19 @@ import (
 	"github.com/opentracing/opentracing-go"
 	jaegercfg "github.com/uber/jaeger-client-go/config"
 	"github.com/uber/jaeger-lib/client/log/go-kit"
+	"github.com/uber/jaeger-lib/metrics"
+	"go.uber.org/dig"
 )
+
+// TracerParams provides a set of dependencies for a tracer constructor.
+type TracerParams struct {
+	dig.In
+
+	Config         *Config
+	Logger         log.Logger      `optional:"true"`
+	MetricsFactory metrics.Factory `optional:"true"`
+	Lifecycle      fxt.Lifecycle
+}
 
 // NewTracer returns a new jaeger tracer.
 func NewTracer(params TracerParams) (opentracing.Tracer, error) {
