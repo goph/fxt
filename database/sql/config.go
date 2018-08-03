@@ -1,7 +1,6 @@
 package fxsql
 
 import (
-	"fmt"
 	"time"
 )
 
@@ -29,24 +28,19 @@ func NewConfig(driver string, dsn string) *Config {
 	}
 }
 
-// AppConfig can be used in an application config to represent database connection details.
-// It supports github.com/goph/nest
-type AppConfig struct {
-	Host string `env:"" required:"true"`
-	Port int    `env:"" default:"3306"`
-	User string `env:"" required:"true"`
-	Pass string `env:""` // Required removed for now because empty value is not supported by Viper
-	Name string `env:"" required:"true"`
+// connDetails describes a structure that contains everything necessary for creating a database connection.
+type connDetails interface {
+	// Driver returns the driver name for the connection.
+	Driver() string
+
+	// DSN returns the data source name for the connection.
+	DSN() string
 }
 
-// Dsn returns the DSN created form the configuration.
-func (c AppConfig) Dsn() string {
-	return fmt.Sprintf(
-		"%s:%s@tcp(%s:%d)/%s",
-		c.User,
-		c.Pass,
-		c.Host,
-		c.Port,
-		c.Name,
-	)
+// NewConfig returns a new config populated with default values.
+func NewConfigFromConnectionDetails(details connDetails) *Config {
+	return &Config{
+		Driver: details.Driver(),
+		Dsn:    details.DSN(),
+	}
 }
